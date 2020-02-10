@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Grid} from 'semantic-ui-react';
+import {Container} from 'semantic-ui-react';
 
 import NavigationSemantic from '../Navigation/NavigationSemantic';
 import Navigation from '../Navigation/Navigation';
