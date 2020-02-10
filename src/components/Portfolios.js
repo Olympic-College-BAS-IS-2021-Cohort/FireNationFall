@@ -1,7 +1,7 @@
 import React from 'react';
-import {Card, Grid, Segment, Header, Container} from 'semantic-ui-react';
+import {Card, Grid, Segment, Header} from 'semantic-ui-react';
 
-import CardPlaceholder from './CardPlaceholder/CardPlaceholder';
+// import CardPlaceholder from './CardPlaceholder/CardPlaceholder';
 import ProfileCard from './ProfileCard/ProfileCard';
 
 
@@ -13,8 +13,7 @@ export default (props) => (
 			</Header>
 		</Grid.Row>
 
-		<Grid.Row>
-			<Segment attached style={{borderRadius: '0'}}>
+		<Grid.Row centered>
 				<Card.Group itemsPerRow={3} centered stackable>
 					<ProfileCard/>
 					<ProfileCard/>
@@ -22,35 +21,6 @@ export default (props) => (
 					<ProfileCard/>
 					<ProfileCard/>
 				</Card.Group>
-			</Segment>
 		</Grid.Row>
 	</Grid>
 );
-
-
-{/*<Grid columns={3} stackable>*/
-}
-{/*	<Grid.Row>*/
-}
-{/*		<Grid.Column>*/
-}
-{/*			<CardPlaceholder/>*/
-}
-{/*		</Grid.Column>*/
-}
-{/*		<Grid.Column>*/
-}
-{/*			<CardPlaceholder/>*/
-}
-{/*		</Grid.Column>*/
-}
-{/*		<Grid.Column>*/
-}
-{/*			<CardPlaceholder/>*/
-}
-{/*		</Grid.Column>*/
-}
-{/*	</Grid.Row>*/
-}
-{/*</Grid>*/
-}

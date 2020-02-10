@@ -1,10 +1,9 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 
-import {Card, Image, Button, Responsive} from 'semantic-ui-react';
+import {Card, Image, Button} from 'semantic-ui-react';
 
 const ProfileCard = (props) => {
-	console.log(props);
 	return (
 		<Card>
 			<Image src={'/avatars/T.png'} size={'medium'} centered/>
