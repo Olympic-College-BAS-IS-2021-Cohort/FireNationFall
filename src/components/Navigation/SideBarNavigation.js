@@ -1,18 +1,21 @@
 import React, {useRef} from 'react';
 
-import {Sidebar, Icon, Menu, Sticky, Image, Segment, Container} from 'semantic-ui-react';
+import {Sidebar, Icon, Menu} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+
+// import SideBarStyles from './SideBarNavigation.module.css'
 
 const SideBarNavigation = (props) => {
 
-	const sidebarRef = useRef(null);
+	// const sidebarRef = useRef(null);
 
 	return (
 		<Sidebar.Pushable>
 			<Sidebar
 				as={Menu}
-				animation={'push'}
+				animation={'overlay'}
 				icon={'labeled'}
+				direction={'top'}
 				inverted
 				vertical
 				onHide={() => props.onClick(false)}
