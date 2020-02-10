@@ -3,7 +3,7 @@ import {Placeholder, Card, Icon} from 'semantic-ui-react';
 
 
 export default (props) => (
-	<Card>
+	<Card fluid>
 		<Placeholder fluid>
 			<Placeholder.Image square/>
 		</Placeholder>

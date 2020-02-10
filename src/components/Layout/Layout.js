@@ -1,8 +1,11 @@
 import React, {useRef, useState} from 'react';
 import {Sticky, Container} from 'semantic-ui-react';
 
-import Navigation from './Navigation/Navigation';
-import SideBarNavigation from './Navigation/SideBarNavigation';
+import Navigation from '../Navigation/Navigation';
+import SideBarNavigation from '../Navigation/SideBarNavigation';
+
+import styles from './Layout.module.css'
+
 
 const Layout = (props) => {
 	const containerRef = useRef(null);
@@ -15,7 +18,7 @@ const Layout = (props) => {
 	};
 
 	return (
-		<div ref={containerRef}>
+		<div ref={containerRef} className={styles.Layout}>
 			<Sticky context={containerRef}>
 				<Navigation layoutRef={containerRef} onClick={handleSidebarClick}/>
 			</Sticky>

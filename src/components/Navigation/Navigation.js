@@ -18,10 +18,8 @@ const Navigation = (props) => {
 
 	return (
 			<Menu
-				inverted
 				pointing
 				borderless
-				color={'red'}
 			>
 					<Responsive minWidth={Responsive.onlyTablet.minWidth} as={Menu.Menu} position={'left'}>
 						<Menu.Item
@@ -56,7 +54,7 @@ const Navigation = (props) => {
 					</Responsive>
 				<Menu.Menu position={'right'}>
 					<Menu.Item >
-						<Input className={'icon'} icon={'search'} placeholder={'Search articles...'} inverted/>
+						<Input className={'icon'} icon={'search'} placeholder={'Search articles...'} />
 					</Menu.Item>
 				</Menu.Menu>
 			</Menu>

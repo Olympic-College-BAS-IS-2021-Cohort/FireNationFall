@@ -1,19 +1,21 @@
 import React from 'react';
-import {Segment} from 'semantic-ui-react';
+import {Segment, Grid} from 'semantic-ui-react';
+import {ReactComponent as WorkTogetherSVG} from '../../images/work-together.svg';
+
 
 
 export default (props) => (
-	<div>
-		<Segment style={{borderRadius: "0", minHeight: "93vh"}} color={'red'} inverted secondary>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aspernatur assumenda, dicta ea enim
-			eveniet exercitationem facere fugit harum inventore molestiae natus nisi, nobis non odio, perferendis
-			suscipit ut voluptatum.
-		</Segment>
-		<Segment style={{borderRadius: "0", minHeight: "93vh"}} secondary>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aspernatur assumenda, dicta ea enim
-			eveniet exercitationem facere fugit harum inventore molestiae natus nisi, nobis non odio, perferendis
-			suscipit ut voluptatum.
-		</Segment>
-	</div>
+	<Grid columns={2} stackable verticalAlign={'middle'}>
+		<Grid.Row>
+			<Grid.Column width={5}>
+				<Segment basic textAlign={'center'}>A Team of passionate developers and IT professionals</Segment>
+			</Grid.Column>
+			<Grid.Column width={11}>
+				<Segment basic>
+					<WorkTogetherSVG style={{width: "100%"}}/>
+				</Segment>
+			</Grid.Column>
+		</Grid.Row>
+	</Grid>
 );
 
