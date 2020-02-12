@@ -8,7 +8,6 @@ export default props => {
 	const [expanded, setExpanded] = useState(false);
 
 	const handleOnSelect = (eventKey, e)  =>{
-		console.log(eventKey, e);
 		setExpanded(!expanded);
 	};
 
