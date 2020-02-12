@@ -1,7 +1,6 @@
 import React from 'react';
 import {Card, Grid, Container, Header} from 'semantic-ui-react';
 
-// import CardPlaceholder from './CardPlaceholder/CardPlaceholder';
 import ProfileCard from './ProfileCard/ProfileCard';
 
 
