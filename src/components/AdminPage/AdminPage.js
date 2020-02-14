@@ -1,12 +1,19 @@
 import React, {useState} from 'react';
-import {Accordion, Icon, Grid, Container, Segment, List} from 'semantic-ui-react';
+import {Accordion, Icon, Grid, Segment, List} from 'semantic-ui-react';
 
-
+import PortfolioForm from './PortfolioForm';
 import helpers from './helpers';
 
 export default (props) => {
 
 	const [activeIndex, setActiveIndex] = useState(null);
+	const [ComponentToRender, setComponentToRender] = useState((props) => {
+		return(
+			<p>
+				Please select a function
+			</p>
+		)
+	});
 
 	const handleOnClick = (e, titleProps) => {
 		const {index} = titleProps;
@@ -15,7 +22,19 @@ export default (props) => {
 	};
 
 	const handleListItemClick = (e, maybe) => {
-		console.log(e, maybe);
+		const {index} = maybe;
+
+		switch(index) {
+			case 0: setComponentToRender(PortfolioForm);
+			break;
+			default: setComponentToRender((props) => {
+				return(
+					<p>
+						Please select a function
+					</p>
+				)
+			});
+		}
 	};
 
 	const portfolioFunctions = [
@@ -32,13 +51,15 @@ export default (props) => {
 	const articlefunctions = [
 		{
 			content: 'New Article',
-			index: 0
+			index: 2
 		},
 		{
 			content: 'Edit Article',
-			index: 0
+			index: 3
 		}
 	];
+
+	console.log(ComponentToRender);
 
 	return (
 		<Grid style={{minHeight: '100vh'}} container>
@@ -56,7 +77,7 @@ export default (props) => {
 							</Accordion.Title>
 							<Accordion.Content active={activeIndex === 0}>
 								<List link animated onItemClick={handleListItemClick}
-								      items={helpers.transformItemsToLink(portfolioFunctions)}/>
+								      items={helpers.transformItemsToLink(portfolioFunctions)} listname={'portfolio'}/>
 							</Accordion.Content>
 							<Accordion.Title
 								active={activeIndex === 1}
@@ -75,12 +96,7 @@ export default (props) => {
 				</Grid.Column>
 				<Grid.Column width={12} style={{height: '100%'}}>
 					<Segment>
-						<Accordion>
-							<Accordion.Title>
-								<Icon name="dropdown"/>
-								Render something dynamic here
-							</Accordion.Title>
-						</Accordion>
+						{ComponentToRender}
 					</Segment>
 				</Grid.Column>
 			</Grid.Row>

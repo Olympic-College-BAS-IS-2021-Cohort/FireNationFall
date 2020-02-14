@@ -1,6 +1,5 @@
 import React from 'react';
 import {Image, Segment, Header, Grid, Container} from 'semantic-ui-react';
-import InforContainer from '../InfoContainer/InfoContainer';
 
 //Todo: move inline styles to separate modules
 //Todo: refactor the several containers to its own component.
@@ -38,12 +37,6 @@ const dummyData = {
 		]
 	}
 };
-
-
-//
-const gradiesntArray = [
-
-];
 
 
 
