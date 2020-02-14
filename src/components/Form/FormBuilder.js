@@ -21,7 +21,7 @@ const formConfigs = {
 		{
 			control: 'button',
 			type: 'submit',
-			content: 'Log In'
+			name: 'Log In'
 		}
 	],
 	onSubmit: function handleSubmit (e) {
@@ -32,19 +32,19 @@ const formConfigs = {
 
 const FormBuilder = (props) => {
 
-	const [formState, setFormState] = useState({});
+	// const [formState, setFormState] = useState({});
 
-	const handleOnChange = (e, {name, value}) => {
-		console.log('handling on change of', name);
+	const handleOnChange = (e) => {
+		props.onChange(e.target.name, e.target.value);
 	};
 
 	return (
-		<Form widths={'equal'} onSubmit={props.onSubmit}>
-			{props.formConfigs.fieldConfigs.map(fieldConfig => {
+		<Form widths={'equal'} onSubmit={props.onSubmit} style={{width: '100%'}}>
+			{props.fieldConfigs.map((fieldConfig, index) => {
 				if(fieldConfig.control !== 'button') {
-					return <FormField {...fieldConfig} onChange={handleOnChange}/>
+					return <FormField key={index} {...fieldConfig} onChange={handleOnChange}/>
 				}
-				return  <FormField {...fieldConfig}/>
+				return  <FormField key={index} {...fieldConfig}> {fieldConfig.name}</FormField>
 			})}
 		</Form>
 	)
