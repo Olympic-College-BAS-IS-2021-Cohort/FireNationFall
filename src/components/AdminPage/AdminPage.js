@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import {Accordion, Icon, Grid, Segment, List} from 'semantic-ui-react';
 
 import PortfolioForm from './PortfolioForm';
+import ArticleForm from './ArticleForm';
 import helpers from './helpers';
 
 export default (props) => {
 
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [ComponentToRender, setComponentToRender] = useState((props) => {
-		return(
+		return (
 			<p>
 				Please select a function
 			</p>
@@ -24,16 +25,29 @@ export default (props) => {
 	const handleListItemClick = (e, maybe) => {
 		const {index} = maybe;
 
-		switch(index) {
-			case 0: setComponentToRender(PortfolioForm);
-			break;
-			default: setComponentToRender((props) => {
-				return(
-					<p>
-						Please select a function
-					</p>
-				)
-			});
+		switch (index) {
+			case 0:
+				setComponentToRender(PortfolioForm({
+					something: 'hey'
+				}));
+				break;
+			case 1:
+				setComponentToRender(PortfolioForm);
+				break;
+			case 2:
+				setComponentToRender(ArticleForm);
+				break;
+			case 3:
+				setComponentToRender(ArticleForm);
+				break;
+			default:
+				setComponentToRender((props) => {
+					return (
+						<p>
+							Please select a function
+						</p>
+					)
+				});
 		}
 	};
 
@@ -58,8 +72,6 @@ export default (props) => {
 			index: 3
 		}
 	];
-
-	console.log(ComponentToRender);
 
 	return (
 		<Grid style={{minHeight: '100vh'}} container>

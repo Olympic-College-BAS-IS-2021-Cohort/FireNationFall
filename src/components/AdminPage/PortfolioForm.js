@@ -50,17 +50,22 @@ export default (props) => {
 				control: 'textarea',
 				name: 'contact'
 			},
-		]
+		],
+		onSubmit: function onPortfolioFormSubmit (e, ...rest)  {
+			console.log('handling portfolio form');
+			console.log(e, rest);
+		},
+		onChange: function onPortfolioInputChanges (inputName, value) {
+			console.log('handling portfolio input changes');
+			console.log(inputName, value);
+		}
 	};
 
-	const handleOnSubmit = (e, ...rest) => {
-		console.log('handling portfolio form');
-		console.log(e, rest);
-	};
+	console.log(props);
 
 	return (
 		<>
-			<FormBuilder {...formConfigs} onSubmit={handleOnSubmit}/>
+			<FormBuilder {...formConfigs}/>
 		</>
 	)
 }

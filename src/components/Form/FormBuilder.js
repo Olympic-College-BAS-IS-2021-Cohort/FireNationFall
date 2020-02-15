@@ -52,7 +52,8 @@ const FormBuilder = (props) => {
 
 FormBuilder.propTypes = {
 	fieldConfigs: PropTypes.array.isRequired,
-	onSubmit: PropTypes.func.isRequired
+	onSubmit: PropTypes.func.isRequired,
+	onChange: PropTypes.func.isRequired
 };
 
 
