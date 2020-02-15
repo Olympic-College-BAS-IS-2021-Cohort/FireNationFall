@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Accordion, Icon, Grid, Segment, List} from 'semantic-ui-react';
+import {Accordion, Icon, Grid, Segment, List, Header} from 'semantic-ui-react';
 
 import PortfolioForm from './PortfolioForm';
 import ArticleForm from './ArticleForm';
@@ -7,14 +7,20 @@ import helpers from './helpers';
 
 export default (props) => {
 
-	const [activeIndex, setActiveIndex] = useState(null);
-	const [ComponentToRender, setComponentToRender] = useState((props) => {
+	const SelectIndicator = (props) => {
 		return (
-			<p>
+			<Header as={'h2'} icon>
+				<Icon name={'hand point left'}/>
 				Please select a function
-			</p>
+				<Header.Subheader>
+					A form will appear according to choice.
+				</Header.Subheader>
+			</Header>
 		)
-	});
+	};
+
+	const [activeIndex, setActiveIndex] = useState(null);
+	const [ComponentToRender, setComponentToRender] = useState(SelectIndicator);
 
 	const handleOnClick = (e, titleProps) => {
 		const {index} = titleProps;
@@ -26,6 +32,10 @@ export default (props) => {
 		const {index} = maybe;
 
 		switch (index) {
+			case -1:
+				setActiveIndex(-1);
+				setComponentToRender(SelectIndicator);
+				break;
 			case 0:
 				setComponentToRender(PortfolioForm({
 					something: 'hey'
@@ -75,9 +85,12 @@ export default (props) => {
 
 	return (
 		<Grid style={{minHeight: '100vh'}} container>
-			<Grid.Row>
+			<Grid.Row style={{marginTop: '20px'}}>
 				<Grid.Column width={4} style={{height: '100%'}} verticalAlign={'middle'}>
 					<Segment>
+						<List.Item as={'a'} index={-1} onClick={handleListItemClick}>
+							Home
+						</List.Item>
 						<Accordion fluid>
 							<Accordion.Title
 								active={activeIndex === 0}
@@ -107,7 +120,7 @@ export default (props) => {
 					</Segment>
 				</Grid.Column>
 				<Grid.Column width={12} style={{height: '100%'}}>
-					<Segment>
+					<Segment textAlign={'center'}>
 						{ComponentToRender}
 					</Segment>
 				</Grid.Column>
