@@ -2,8 +2,6 @@ import React from 'react';
 import {Segment, Grid, Container} from 'semantic-ui-react';
 import {ReactComponent as WorkTogetherSVG} from '../../images/work-together.svg';
 
-
-
 export default (props) => (
 	<Container>
 		<Grid stackable verticalAlign={'middle'} centered>

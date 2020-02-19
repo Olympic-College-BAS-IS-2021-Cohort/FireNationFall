@@ -3,6 +3,43 @@ import {Image, Segment, Header, Grid, Container} from 'semantic-ui-react';
 
 //Todo: move inline styles to separate modules
 //Todo: refactor the several containers to its own component.
+
+
+const dummyData = {
+	about: {
+		description: 'this is the description about me'
+	},
+	experience : [
+		{
+			company: 'first company',
+			position: 'developer',
+			duration: 'from this date to this date',
+			description: 'description of what i worked with'
+		}
+	],
+	education: {
+		school: 'school name',
+		major: 'major 1',
+		duration: 'from this to that'
+	},
+	skills: {
+		languages: [
+			'language 1',
+			'language 2'
+		],
+		tools: [
+			'tool 1',
+			'tool 2'
+		],
+		frameworks: [
+			'framework 1',
+			'framework 2'
+		]
+	}
+};
+
+
+
 export default (props) => {
 	return (
 		<Container fluid style={{padding: "0px"}}>

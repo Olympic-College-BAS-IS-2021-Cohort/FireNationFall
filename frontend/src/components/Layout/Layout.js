@@ -11,9 +11,6 @@ import styles from './Layout.module.css'
 const Layout = (props) => {
 	return (
 		<div className={styles.Layout}>
-			<div style={{height: '75px'}}>
-				<Navigation/>
-			</div>
 			{props.children}
 		</div>
 	)
