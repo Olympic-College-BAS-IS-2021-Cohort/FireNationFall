@@ -2,15 +2,34 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const portfolioSchema = new Schema({
-	published: Boolean,
-	name: String, //todo: use a User schema and get the name out here
+	published: {
+		type: Boolean,
+		required: [true, 'Needed for filter']
+	},
+	name: {
+		type: String,
+		required: true,
+		trim: true,
+		minlength: [1, 'A name must have at least 1 character']
+	}, //todo: use a User schema and get the name out here
 	pictureUrl: String,
 	about: String,
 	experience: [{
-		startDate: Date,
+		startDate: {
+			type: Date,
+			required: true
+		},
 		endDate: Date,
-		position: String,
-		jobDescription: String
+		position: {
+			type: String,
+			required : true,
+			minLength: 1
+		},
+		jobDescription: {
+			type: String,
+			required: true,
+			minLength: 1
+		}
 	}],
 	education: [{
 		startDate: Date,

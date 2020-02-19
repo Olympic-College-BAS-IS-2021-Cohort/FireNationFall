@@ -15,7 +15,6 @@ const getPortfolios = (req, res, next) => {
 
 const getPortfolioById = (req, res ,next) => {
 	let {id} = req.params;
-	// id = mongooseTypes.ObjectId(id);
 	Portfolio.findById(id, (err, portfolio) => {
 		if(!portfolio) {
 			return res.status(400).send({
@@ -37,7 +36,9 @@ const postPortfolio = (req, res ,next) => {
 	const newPortfolio = new Portfolio(data);
 
 	newPortfolio.save(err => {
-		console.log(err);
+		return res.status(500).send({
+			err: 'There was an error creating your portfolio'
+		})
 	});
 	res.status(201).send('portfolio created');
 };
