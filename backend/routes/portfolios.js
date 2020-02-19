@@ -7,6 +7,8 @@ router.delete('/:id', portfoliosController.deletePortfolio);
 
 router.get('/:id', portfoliosController.getPortfolioById);
 
+router.patch('/:id', portfoliosController.updatePortfolio);
+
 router.post('/', portfoliosController.postPortfolio);
 
 router.get('/', portfoliosController.getPortfolios);

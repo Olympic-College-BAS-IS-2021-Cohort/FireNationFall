@@ -1,4 +1,3 @@
-const mongooseTypes = require('mongoose').Types;
 const Portfolio = require('../models/portfolio');
 
 
@@ -43,13 +42,49 @@ const postPortfolio = (req, res ,next) => {
 	res.status(201).send('portfolio created');
 };
 
+const updatePortfolio = (req, res, next) => {
+	const {id} = req.params;
+	const updatedPortfolio = req.body;
+
+	Portfolio.findByIdAndUpdate(id, updatedPortfolio, (err, portfolio) => {
+		if(!portfolio) {
+			return res.status(400).send({
+				err: 'Cannot find the portfolio to update'
+			})
+		}
+		if(err) {
+			return res.status(500).send({
+				err: 'There was an error finding the portfolio in database'
+			})
+		}
+
+		res.status(200).send({
+			message: 'Portfolio updated successfully'
+		});
+	})
+
+};
+
 const deletePortfolio = (req, res ,next) => {
-	res.send('deleting portfolio');
+	const {id} = req.params;
+
+	Portfolio.findByIdAndDelete(id, err => {
+		if(err) {
+			res.status(500).send({
+				err: 'There was an error deleting your portfolio'
+			})
+		}
+
+		res.status(200).send({
+			message: 'Portfolio deleted'
+		})
+	})
 };
 
 module.exports = {
 	getPortfolios,
 	getPortfolioById,
 	postPortfolio,
-	deletePortfolio
+	deletePortfolio,
+	updatePortfolio
 };

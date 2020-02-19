@@ -43,7 +43,7 @@ const model = mongoose.model('Portfolio', portfolioSchema);
 
 //
 portfolioSchema.methods.updatePortfolio = (id, updatedPortfolio) => {
-	model.find(id, portfolio => {
+	model.findById(id, (err, portfolio) => {
 		console.log(portfolio);
 	})
 };
