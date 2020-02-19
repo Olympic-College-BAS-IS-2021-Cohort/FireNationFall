@@ -1,18 +1,34 @@
-
+const mongooseTypes = require('mongoose').Types;
 const Portfolio = require('../models/portfolio');
 
 
 const getPortfolios = (req, res, next) => {
-	let portfolios = undefined;
-	Portfolio.find({}, (err, docs) => {
-		portfolios = docs;
-		res.send(portfolios);
+	Portfolio.find({}, (err, portfolios) => {
+		if(err) {
+			return res.status(500).send({
+				err: 'There was an error fetching portoflios'
+			})
+		}
+		res.status(200).send(portfolios);
 	});
 };
 
 const getPortfolioById = (req, res ,next) => {
-	console.log(req.params);
-	res.send('getting portfolio by id')
+	let {id} = req.params;
+	// id = mongooseTypes.ObjectId(id);
+	Portfolio.findById(id, (err, portfolio) => {
+		if(!portfolio) {
+			return res.status(400).send({
+				err: 'BAD!'
+			});
+		}
+		if(err) {
+			return res.status(500).send({
+				err: 'There was an error fetching your portfolio'
+			})
+		}
+		res.status(200).send(portfolio);
+	})
 };
 
 

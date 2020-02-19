@@ -20,5 +20,14 @@ const portfolioSchema = new Schema({
 	skills: [String]
 });
 
+const model = mongoose.model('Portfolio', portfolioSchema);
 
-module.exports = mongoose.model('Portfolio', portfolioSchema);
+//
+portfolioSchema.methods.updatePortfolio = (id, updatedPortfolio) => {
+	model.find(id, portfolio => {
+		console.log(portfolio);
+	})
+};
+
+
+module.exports = model;
