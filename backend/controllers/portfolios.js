@@ -1,5 +1,13 @@
+
+const Portfolio = require('../models/portfolio');
+
+
 const getPortfolios = (req, res, next) => {
-	res.send('getting portfolios');
+	let portfolios = undefined;
+	Portfolio.find({}, (err, docs) => {
+		portfolios = docs;
+		res.send(portfolios);
+	});
 };
 
 const getPortfolioById = (req, res ,next) => {
@@ -9,7 +17,13 @@ const getPortfolioById = (req, res ,next) => {
 
 
 const postPortfolio = (req, res ,next) => {
-	res.send('posting portfolio');
+	const data = req.body;
+	const newPortfolio = new Portfolio(data);
+
+	newPortfolio.save(err => {
+		console.log(err);
+	});
+	res.status(201).send('portfolio created');
 };
 
 const deletePortfolio = (req, res ,next) => {
