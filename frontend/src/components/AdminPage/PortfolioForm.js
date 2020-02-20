@@ -51,9 +51,9 @@ export default (props) => {
 				name: 'contact'
 			},
 		],
-		onSubmit: function onPortfolioFormSubmit (e, ...rest)  {
+		onSubmit: function onPortfolioFormSubmit (values)  {
 			console.log('handling portfolio form');
-			console.log(e, rest);
+			console.log(values);
 		},
 		onChange: function onPortfolioInputChanges (inputName, value) {
 			console.log('handling portfolio input changes');

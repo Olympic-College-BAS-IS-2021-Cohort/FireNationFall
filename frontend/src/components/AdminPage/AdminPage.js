@@ -120,7 +120,7 @@ export default (props) => {
 					</Segment>
 				</Grid.Column>
 				<Grid.Column width={12} style={{height: '100%'}}>
-					<Segment textAlign={'center'}>
+					<Segment>
 						{ComponentToRender}
 					</Segment>
 				</Grid.Column>
