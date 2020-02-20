@@ -5,7 +5,7 @@ const getPortfolios = (req, res, next) => {
 	Portfolio.find({}, (err, portfolios) => {
 		if(err) {
 			return res.status(500).send({
-				err: 'There was an error fetching portoflios'
+				err: 'There was an error fetching portfolios'
 			})
 		}
 		res.status(200).send(portfolios);
