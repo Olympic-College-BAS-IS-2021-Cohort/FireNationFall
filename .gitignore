@@ -3,6 +3,9 @@
 #idea
 .idea/
 
+#localhost
+localhost*
+
 # dependencies
 node_modules
 /.pnp
