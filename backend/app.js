@@ -5,15 +5,13 @@ const app = express();
 
 const portfoliosRoutes = require('./routes/portfolios');
 const articlesRoutes = require('./routes/articles');
+const apiRoutes  = require('./routes/api');
 
 //middlewares to parse a request's body to usable formats.
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/portfolios', portfoliosRoutes);
-app.use('/articles', articlesRoutes);
-
-// app.use('/admin, admin')
+app.use('/api', apiRoutes);
 
 app.get('/', function getHome(req, res) {
 	res.send('Reaching getHome route');

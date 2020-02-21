@@ -14,10 +14,11 @@ const getPortfolios = (req, res, next) => {
 
 const getPortfolioById = (req, res ,next) => {
 	let {id} = req.params;
+	console.log(req.params);
 	Portfolio.findById(id, (err, portfolio) => {
 		if(!portfolio) {
 			return res.status(400).send({
-				err: 'BAD!'
+				err: 'BAD! portfolio id wrong'
 			});
 		}
 		if(err) {
@@ -35,9 +36,11 @@ const postPortfolio = (req, res ,next) => {
 	const newPortfolio = new Portfolio(data);
 
 	newPortfolio.save(err => {
-		return res.status(500).send({
-			err: 'There was an error creating your portfolio'
-		})
+		if(err) {
+			 res.status(500).send({
+				err: 'There was an error creating your portfolio'
+			})
+		}
 	});
 	res.status(201).send('portfolio created');
 };
