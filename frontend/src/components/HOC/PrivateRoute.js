@@ -1,24 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {Route, Redirect} from 'react-router-dom';
+import {useAuth0} from '../../react-auth0-spa';
 
 
-export default ({component: Component, ...rest}) => {
-	console.log(rest);
+const PrivateRoute = ({ component: Component, path, ...rest }) => {
+	const { loading, isAuthenticated, loginWithRedirect } = useAuth0();
 
-	const [isAuthorized, setAuthorization] = useState(false);
+	useEffect(() => {
+		if (loading || isAuthenticated) {
+			return;
+		}
+		const fn = async () => {
+			await loginWithRedirect({
+				appState: { targetUrl: path }
+			});
+		};
+		fn();
+	}, [loading, isAuthenticated, loginWithRedirect, path]);
 
+	const render = props =>
+		isAuthenticated === true ? <Component {...props} /> : null;
 
-	return (
-		<div>
-			<Route {...rest} render={props => {
+	return <Route path={path} render={render} {...rest} />;
+};
 
-				return(
-					isAuthorized ?
-							<Component {...props}/>
-							:
-							<Redirect to={'/'}/>
-				)
-			}}/>
-		</div>
-	)
-}
+export default PrivateRoute;

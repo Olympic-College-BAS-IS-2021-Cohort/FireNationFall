@@ -46,14 +46,10 @@ const FormBuilder = (props) => {
 	};
 
 	return (
-		<FinalForm onSubmit={(values) => {
-			console.log('submitting');
-			props.onSubmit(values);
-		}} fieldConfigs={props.fieldConfigs} render={props => (
+		<FinalForm onSubmit={props.onSubmit} fieldConfigs={props.fieldConfigs} render={props => (
 			<Form onSubmit={props.handleSubmit}>
 				{props.fieldConfigs.map((fieldConfig, index) => {
 					return <FinalField key={index} name={fieldConfig.name} render={({input, meta}) => {
-						// console.log(input);
 						return (
 							<FormField {...input} {...fieldConfig}/>
 						)

@@ -19,8 +19,8 @@ function App() {
 			<Layout>
 				<Switch>
 					{/*<Route path={'/not-log-in'} render={props => <LoginPage {...props}/>}/>*/}
-					<Route path={'/admin/not-log-in'} component={LoginPage}/>
-					<Route path={'/admin'} component={AdminPage}/>
+					{/*<Route path={'/admin/not-log-in'} render={props => <LoginPage {...props}/>}/>*/}
+					<PrivateRoute path={'/admin'} component={AdminPage}/>
 					<Route path={'/'} render={props => {
 						return (
 							<>

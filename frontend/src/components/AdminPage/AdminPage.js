@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {Accordion, Icon, Grid, Segment, List, Header} from 'semantic-ui-react';
+import {useAuth0} from '../../react-auth0-spa';
+
 
 import PortfolioForm from './PortfolioForm';
 import ArticleForm from './ArticleForm';
@@ -27,6 +29,8 @@ export default (props) => {
 		const newIndex = activeIndex === index ? -1 : index;
 		setActiveIndex(newIndex);
 	};
+
+	const {logout} =  useAuth0();
 
 	const handleListItemClick = (e, maybe) => {
 		const {index} = maybe;
@@ -88,9 +92,11 @@ export default (props) => {
 			<Grid.Row style={{marginTop: '20px'}}>
 				<Grid.Column width={4} style={{height: '100%'}} verticalAlign={'middle'}>
 					<Segment>
-						<List.Item as={'a'} index={-1} onClick={handleListItemClick}>
-							Home
-						</List.Item>
+						<List link>
+							<List.Item as={'a'} index={-1} onClick={handleListItemClick}>
+								Home
+							</List.Item>
+						</List>
 						<Accordion fluid>
 							<Accordion.Title
 								active={activeIndex === 0}
@@ -117,6 +123,11 @@ export default (props) => {
 								      items={helpers.transformItemsToLink(articlefunctions)}/>
 							</Accordion.Content>
 						</Accordion>
+						<List link>
+							<List.Item as={'a'} index={-1} onClick={() => logout()}>
+								Logout
+							</List.Item>
+						</List>
 					</Segment>
 				</Grid.Column>
 				<Grid.Column width={12} style={{height: '100%'}}>

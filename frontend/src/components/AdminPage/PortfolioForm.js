@@ -1,5 +1,8 @@
 import React from 'react';
 
+import {Step, Button} from 'semantic-ui-react';
+
+
 import FormBuilder from '../Form/FormBuilder';
 
 
@@ -66,6 +69,7 @@ export default (props) => {
 	return (
 		<>
 			<FormBuilder {...formConfigs}/>
+			<Button>Save</Button>
 		</>
 	)
 }
