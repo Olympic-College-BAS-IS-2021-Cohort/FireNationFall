@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'
-import {Form, FormField} from 'semantic-ui-react';
+import {Button, Form, FormField} from 'semantic-ui-react';
 import {Form as FinalForm, Field as FinalField} from 'react-final-form'
 
 //an example formConfigs
@@ -46,7 +46,7 @@ const FormBuilder = (props) => {
 	};
 
 	return (
-		<FinalForm onSubmit={props.onSubmit} fieldConfigs={props.fieldConfigs} render={props => (
+		<FinalForm onSubmit={props.onSubmit} btnName={props.btnName} fieldConfigs={props.fieldConfigs} render={props => (
 			<Form onSubmit={props.handleSubmit}>
 				{props.fieldConfigs.map((fieldConfig, index) => {
 					return <FinalField key={index} name={fieldConfig.name} render={({input, meta}) => {
@@ -56,6 +56,7 @@ const FormBuilder = (props) => {
 					}
 					}/>
 				})}
+				<Button style={{justifySelf: 'right'}}>{props.btnName}</Button>
 			</Form>
 		)}/>
 	)

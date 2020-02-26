@@ -22,11 +22,14 @@ export default (props) => {
 		onSubmit: function onPortfolioFormSubmit (values)  {
 			console.log('handling skills form');
 			console.log(values);
+			//passing values of this form up to container's component
+			props.onSave();
 		},
 		onChange: function onPortfolioInputChanges (inputName, value) {
 			console.log('handling portfolio input changes');
 			console.log(inputName, value);
-		}
+		},
+		btnName: props.btnName
 	};
 
 	return (

@@ -21,55 +21,33 @@ export default (props) => {
 				placeholder: `select a picture file`,
 				control: 'input',
 				type: 'file',
-				name: 'picture'
+				name: 'picture',
+				enctype: 'multipart/form-data'
 			},
 			{
 				label: 'About Me',
 				placeholder: `Enter things about something`,
 				control: 'textarea',
 				name: 'about'
-			},
-			{
-				label: 'Experience',
-				placeholder: `Your past experience (optional)`,
-				control: 'textarea',
-				name: 'experience'
-			},
-			{
-				label: 'Education',
-				placeholder: `Your Education`,
-				control: 'textarea',
-				name: 'education'
-			},
-			{
-				label: 'Skills',
-				placeholder: `Your skills`,
-				control: 'textarea',
-				name: 'skills'
-			},
-			{
-				label: 'Contact Me',
-				placeholder: `Your contact info`,
-				control: 'textarea',
-				name: 'contact'
-			},
+			}
 		],
 		onSubmit: function onPortfolioFormSubmit (values)  {
 			console.log('handling portfolio form');
 			console.log(values);
+			//passing values of this form up to container's component
+			props.onSave(values);
 		},
 		onChange: function onPortfolioInputChanges (inputName, value) {
 			console.log('handling portfolio input changes');
 			console.log(inputName, value);
-		}
+		},
+		btnName: props.btnName
 	};
-
-	console.log(props);
 
 	return (
 		<>
+			<h1>About</h1>
 			<FormBuilder {...formConfigs}/>
-			<Button>Save</Button>
 		</>
 	)
 }

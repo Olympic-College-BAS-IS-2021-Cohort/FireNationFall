@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Accordion, Icon, Grid, Segment, List, Header} from 'semantic-ui-react';
 import {useAuth0} from '../../react-auth0-spa';
 
-
-import PortfolioForm from './PortfolioForm';
+import Portfolio from './Portfolio';
+import AboutForm from './AboutForm';
 import ArticleForm from './ArticleForm';
 import helpers from './helpers';
 
@@ -41,12 +41,11 @@ export default (props) => {
 				setComponentToRender(SelectIndicator);
 				break;
 			case 0:
-				setComponentToRender(PortfolioForm({
-					something: 'hey'
-				}));
+				//since Portfolio is a class, JSX has to be used.
+				setComponentToRender(<Portfolio/>);
 				break;
 			case 1:
-				setComponentToRender(PortfolioForm);
+				setComponentToRender(<Portfolio/>);
 				break;
 			case 2:
 				setComponentToRender(ArticleForm);

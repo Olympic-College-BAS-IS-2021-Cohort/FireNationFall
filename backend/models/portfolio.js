@@ -32,11 +32,17 @@ const portfolioSchema = new Schema({
 		}
 	}],
 	education: [{
+		institution: String,
 		startDate: Date,
 		endDate: Date,
-		description: String
+		major: String
 	}],
-	skills: [String]
+	skills: [{
+		category: {
+			type: String
+		},
+		list: [String]
+	}]
 });
 
 const model = mongoose.model('Portfolio', portfolioSchema);

@@ -4,21 +4,17 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const {auth} = require('express-openid-connect');
+const jwtAuthz = require('express-jwt-authz');
+
+const {auth, requiresAuth} = require('express-openid-connect');
+
+const checkJwt = require('./middlewares/checkJwt');
+
 
 let app = express();
 
-const config = {
-	required: false,
-	auth0Logout: true,
-	baseURL: "https://localhost:3001",
-	issuerBaseURL: "https://fire-nation.auth0.com",
-	clientID: "nopMBbTaxWzrYzRx618dH85sPYZJMfXk",
-	appSessionSecret: "a long, randomly-generated string stored in env?"
-};
 
 
-const  isAuthenticated = require('./middlewares/authenticate');
 const apiRoutes  = require('./routes/api');
 
 const key = fs.readFileSync('./localhost-key.pem');
@@ -26,7 +22,13 @@ const cert = fs.readFileSync('./localhost.pem');
 
 const options = {key, cert};
 
-app.use(auth(config));
+//getting user profile
+// app.get('/profile', requiresAuth(), (req, res) => {
+// 	res.send(JSON.stringify(req.openid.user));
+// });
+
+// app.use(auth(config));
+
 
 
 //middlewares to parse a request's body to usable formats.
@@ -34,7 +36,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname,'..','frontend','build')));
 
-app.use('/api', isAuthenticated, apiRoutes);
+app.use('/api', (req, res ,next) => {
+	console.log('i got here first');
+	next();
+}, checkJwt, apiRoutes);
+
+
+app.use('/callback', (req, res, next) => {
+	res.redirect('https://localhost:3001/admin');
+});
 
 app.get('*', function getHome(req, res) {
 	res.sendFile(path.join(__dirname,'..','frontend','build','index.html'));
