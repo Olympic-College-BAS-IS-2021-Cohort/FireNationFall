@@ -16,13 +16,13 @@ export default (props) => {
 				label: 'Start Date',
 				control: 'input',
 				type: 'date',
-				name: 'startDate'
+				name: 'startDateSchool'
 			},
 			{
 				label: 'End Date',
 				control: 'input',
 				type: 'date',
-				name: 'endDate'
+				name: 'endDateSchool'
 			},
 			{
 				label: 'Major',
@@ -30,20 +30,30 @@ export default (props) => {
 				name: 'major'
 			}
 		],
-		onSubmit: function onPortfolioFormSubmit (values)  {
-			console.log('handling education form');
-			console.log(values);
+		onSubmit: function onPortfolioFormSubmit (values, ...rest)  {
+			console.log(values, 'educationform');
+			const list = [
+				'institution',
+				'startDateSchool',
+				'endDateSchool',
+				'major'
+			];
 			//passing values of this form up to container's component
+
+			//for each element in array
 			props.onSave({
-				education: {
-					...values
-				}
+				education: list.reduce((acc, currentVal) => {
+					return {
+						...acc,
+						[currentVal]: values[currentVal]
+					}
+				}, {})
 			});
 		},
-		onChange: function onPortfolioInputChanges (inputName, value) {
-			console.log('handling portfolio input changes');
-			console.log(inputName, value);
-		},
+		// onChange: function onPortfolioInputChanges (inputName, value) {
+		// 	console.log('handling portfolio input changes');
+		// 	console.log(inputName, value);
+		// },
 		btnName: props.btnName
 	};
 

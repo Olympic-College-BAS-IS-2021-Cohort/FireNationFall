@@ -10,6 +10,8 @@ import EducationForm from './EducationForm';
 import ExperienceForm from './ExperienceForm';
 import SkillsForm from './SkillsForm';
 
+import AfterSubmit from './AfterSubmit';
+
 
 export default (props) => {
 
@@ -20,32 +22,42 @@ export default (props) => {
 
 	const {getTokenSilently} = useAuth0();
 
-	const [formData, setFormData] = useState(null);
-
-	const [forms, setForms] = useState([
+	const formsArray = [
 		AboutForm,
 		EducationForm,
 		ExperienceForm,
-		SkillsForm
-	]);
+		SkillsForm,
+		AfterSubmit
+	];
 
-	const [currentFormIndex, setFormIndex] = useState(0);
+	const [form, setForm] = useState({
+		formIndex : 0,
+		formData: null
+	});
+
 
 	const onSaveHandler = async (values) => {
-		if (currentFormIndex < forms.length - 1) {
-			setFormIndex(prevState => prevState + 1);
-			setFormData({
-				...formData,
-				...values
+		console.log('onsavehandler', values);
+		if (form.formIndex < formsArray.length - 2) {
+			setForm(prevState => {
+				return {
+					formIndex: prevState.formIndex + 1,
+					formData: {
+						...prevState.formData,
+						...values
+					}
+				}
 			});
 		} else {
 
 			const token = await getTokenSilently();
 
-			console.log({
-				...formData,
+			const data = {
+				...form.formData,
 				...values
-			})
+			};
+
+			console.log(data);
 			// {
 			// 	clientID: 'OS4q4gAZovKeNFaZf9ScOYxrmZ4ojKps',
 			// 		domain: 'fire-nation.auth0.com',
@@ -56,50 +68,48 @@ export default (props) => {
 			// }
 
 
-
-			// axios.post('https://localhost:3001/api/portfolios', {
-			// 	published: false,
-			// 	name: 'Tai',
-			// 	pictureUrl: 'some url here',
-			// 	about: 'some about details',
-			// 	experience: [{
-			// 		startDate: '2020-02-19',
-			// 		endDate: '2020-02-19',
-			// 		position: 'main person',
-			// 		jobDescription: 'job description'
-			// 	}],
-			// 	education: [{
-			// 		institution: 'OC',
-			// 		startDate: '2020-02-19',
-			// 		endDate: '2020-02-19',
-			// 		description: 'education description'
-			// 	}],
-			// 	skills: [{
-			// 		category: 'languages',
-			// 		list: [
-			// 			'language 1',
-			// 			'language 2'
-			// 		]
-			// 	}]
-			// }, {
-			// 	headers: {
-			// 		Authorization: `Bearer ${token}`
-			// 	}
-			// }).then(result => {
-			// 	console.log(result);
-			// }).catch(err => {
-			// 	console.log(err);
-			// })
+			axios.post('https://localhost:3001/api/portfolios', {
+				...data,
+				experience: [data.experience],
+				education: [data.education],
+				skills: [data.skills]
+			}, {
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			}).then(result => {
+				console.log(result);
+				setForm(prevState => {
+					return {
+						formIndex: prevState.formIndex + 1
+					}
+				});
+			}).catch(err => {
+				console.log(err);
+			})
 		}
 	};
 
+	//FIXME: rendering is not correct.
+
 	let Component = null;
-	if (currentFormIndex === forms.length - 1) {
-		Component = forms[currentFormIndex]({onSave: onSaveHandler, btnName: 'Submit'});
+	// if (form.formIndex === formsArray.length - 2) {
+	// 	Component = formsArray[form.formIndex]({onSave: onSaveHandler, btnName: 'Submit'});
+	// } else if (form.formIndex === formsArray.length - 1) {
+	// 	Component = formsArray[form.formIndex]({onSave: onSaveHandler, btnName: 'Save'});
+	// } else {
+	// 	Component = formsArray[form.formIndex]({onClick: () => console.log('clicked')})
+	// }
+
+	if(form.formIndex === formsArray.length - 1) {
+		Component = formsArray[form.formIndex]({onClick: () => console.log('clicked')})
+	} else if(form.formIndex === formsArray.length - 2) {
+		Component = formsArray[form.formIndex]({onSave: onSaveHandler, btnName: 'Submit'});
 	} else {
-		Component = forms[currentFormIndex]({onSave: onSaveHandler, btnName: 'Save'});
+		Component = formsArray[form.formIndex]({onSave: onSaveHandler, btnName: 'Save'});
 	}
 
+	//
 
 	return (
 		<>

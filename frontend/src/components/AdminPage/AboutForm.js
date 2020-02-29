@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 
 import {Step, Button} from 'semantic-ui-react';
 
@@ -7,6 +7,8 @@ import FormBuilder from '../Form/FormBuilder';
 
 
 export default (props) => {
+
+	// const fileRef = useRef(null);
 
 	const formConfigs = {
 		fieldConfigs : [
@@ -21,27 +23,35 @@ export default (props) => {
 				placeholder: `select a picture file`,
 				control: 'input',
 				type: 'file',
-				name: 'picture',
-				enctype: 'multipart/form-data'
+				name: 'picture'
 			},
 			{
 				label: 'About Me',
 				placeholder: `Enter things about something`,
 				control: 'textarea',
 				name: 'about'
+			},
+			{
+				label: 'Published',
+				control: 'input',
+				type: 'checkbox',
+				name: 'published'
 			}
+
 		],
-		onSubmit: function onPortfolioFormSubmit (values)  {
+		onSubmit: async function onPortfolioFormSubmit (values, ...rest)  {
 			console.log('handling portfolio form');
-			console.log(values);
+			console.log(rest, 'rest');
+			console.log(values, 'aboutform');
 			//passing values of this form up to container's component
 			props.onSave(values);
 		},
-		onChange: function onPortfolioInputChanges (inputName, value) {
+		onChange: function onPortfolioInputChanges (e) {
 			console.log('handling portfolio input changes');
-			console.log(inputName, value);
+			console.log(e , 'event');
 		},
-		btnName: props.btnName
+		btnName: props.btnName,
+		enctype: 'multipart/form-data'
 	};
 
 	return (

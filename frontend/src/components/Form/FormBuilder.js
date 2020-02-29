@@ -44,21 +44,30 @@ const FormBuilder = (props) => {
 	const handleOnChange = (e) => {
 		props.onChange(e.target.name, e.target.value);
 	};
-
+	console.log(props);
+	//onSubmit={props.onSubmit} btnName={props.btnName} fieldConfigs={props.fieldConfigs}
 	return (
-		<FinalForm onSubmit={props.onSubmit} btnName={props.btnName} fieldConfigs={props.fieldConfigs} render={props => (
-			<Form onSubmit={props.handleSubmit}>
-				{props.fieldConfigs.map((fieldConfig, index) => {
-					return <FinalField key={index} name={fieldConfig.name} render={({input, meta}) => {
-						return (
-							<FormField {...input} {...fieldConfig}/>
-						)
-					}
-					}/>
-				})}
-				<Button style={{justifySelf: 'right'}}>{props.btnName}</Button>
-			</Form>
-		)}/>
+			<FinalForm {...props}  render={props => (
+				<Form onSubmit={props.handleSubmit} enctype={props.enctype || undefined}>
+					{props.fieldConfigs.map((fieldConfig, index) => {
+						return <FinalField key={fieldConfig.name} name={fieldConfig.name} render={({input, meta}) => {
+							// console.log(props);
+							let handleOnChange = input.onChange;
+							if(fieldConfig.type === 'file') {
+								handleOnChange = (e) => {
+									// console.log(e.target);
+									input.onChange(e.target.files);
+								};
+							}
+							return (
+								<FormField {...input} {...fieldConfig} onChange={handleOnChange}/>
+							)
+						}
+						}/>
+					})}
+					<Button style={{justifySelf: 'right'}} type={'submit'}>{props.btnName}</Button>
+				</Form>
+			)}/>
 	)
 };
 
