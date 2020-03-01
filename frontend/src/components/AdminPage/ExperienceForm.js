@@ -37,32 +37,15 @@ export default (props) => {
 				name: 'jobDescription'
 			}
 		],
-		onSubmit: function onPortfolioFormSubmit (values,...rest)  {
-			console.log(values, 'experienceform');
-			//passing values of this form up to container's component
-
-			const list = [
-				'company',
-				'startDateJob',
-				'endDateJob',
-				'position',
-				'jobDescription'
-			];
-
-
+		onSubmit: function onPortfolioFormSubmit (packagedData)  {
 			props.onSave({
-				experience: list.reduce((acc, currentVal) => {
-					return {
-						...acc,
-						[currentVal]: values[currentVal]
-					}
-				}, {})
+				experience: packagedData
 			});
 		},
-		// onChange: function onPortfolioInputChanges (inputName, value) {
-		// 	console.log('handling portfolio input changes');
-		// 	console.log(inputName, value);
-		// },
+		onChange: function onPortfolioInputChanges (inputName, value) {
+			console.log('handling portfolio input changes');
+			console.log(inputName, value);
+		},
 		btnName: props.btnName
 	};
 

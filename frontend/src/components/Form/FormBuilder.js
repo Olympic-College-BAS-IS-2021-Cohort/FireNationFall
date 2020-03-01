@@ -26,12 +26,12 @@ const formConfigs = {
 		},
 		{
 			control: 'nested',
-			fieldConfigs : [{
+			fieldConfigs: [{
 				//...nested fieldConfigs
 			}]
 		}
 	],
-	onSubmit: function handleSubmit (e) {
+	onSubmit: function handleSubmit(e) {
 		console.log(e);
 		console.log('handling submit');
 	}
@@ -39,55 +39,51 @@ const formConfigs = {
 
 const FormBuilder = (props) => {
 
-	// const [formState, setFormState] = useState({});
+	const {fieldConfigs, onChange, onSubmit, ...formProps} = props;
+
+	const handleOnSubmit = (e) => {
+		e.preventDefault();
+
+		const data = fieldConfigs.reduce((acc, fieldConfig) => {
+
+			if(fieldConfig.type && fieldConfig.type === 'file') {
+				acc = {
+					...acc,
+					[fieldConfig.name] : e.target[fieldConfig.name].files[0]
+				}
+			} else {
+				acc = {
+					...acc,
+					[fieldConfig.name] : e.target[fieldConfig.name].value
+				};
+			}
+
+			return acc;
+		},{});
+
+		onSubmit(data);
+	};
 
 	const handleOnChange = (e) => {
-		props.onChange(e.target.name, e.target.value);
+
+		//may be we don't need an intermediate step here
+		props.onChange(e);
 	};
-	console.log(props);
-	//onSubmit={props.onSubmit} btnName={props.btnName} fieldConfigs={props.fieldConfigs}
+
+
 	return (
-			<FinalForm {...props}  render={props => (
-				<Form onSubmit={props.handleSubmit} enctype={props.enctype || undefined}>
-					{props.fieldConfigs.map((fieldConfig, index) => {
-						return <FinalField key={fieldConfig.name} name={fieldConfig.name} render={({input, meta}) => {
-							// console.log(props);
-							let handleOnChange = input.onChange;
-							if(fieldConfig.type === 'file') {
-								handleOnChange = (e) => {
-									// console.log(e.target);
-									input.onChange(e.target.files);
-								};
-							}
-							return (
-								<FormField {...input} {...fieldConfig} onChange={handleOnChange}/>
-							)
-						}
-						}/>
-					})}
-					<Button style={{justifySelf: 'right'}} type={'submit'}>{props.btnName}</Button>
-				</Form>
-			)}/>
+		<Form onSubmit={handleOnSubmit} {...formProps}>
+			{
+				fieldConfigs.map((fieldConfig) => {
+					return (
+						<FormField key={fieldConfig.name} {...fieldConfig} onChange={handleOnChange}/>
+					)
+				})
+			}
+			<Button style={{justifySelf: 'right'}} type={'submit'}>{props.btnName}</Button>
+		</Form>
 	)
 };
-
-{/*<form onSubmit={props.handleSubmit}>*/}
-{/*	<FinalField name={'nameField'} render={({input, meta}) => (*/}
-{/*		<div>*/}
-{/*			<label>name</label>*/}
-{/*			<input type="text" {...input} placeholder="name" />*/}
-{/*		</div>*/}
-{/*	)}/>*/}
-{/*</form>*/}
-
-{/*<Form widths={'equal'} onSubmit={props.onSubmit} style={{width: '100%'}}>*/}
-{/*	{props.fieldConfigs.map((fieldConfig, index) => {*/}
-{/*		if(fieldConfig.control !== 'button') {*/}
-{/*			return <FormField key={index} {...fieldConfig} onChange={handleOnChange}/>*/}
-{/*		}*/}
-{/*		return  <FormField key={index} {...fieldConfig}> {fieldConfig.name}</FormField>*/}
-{/*	})}*/}
-{/*</Form>*/}
 
 FormBuilder.propTypes = {
 	fieldConfigs: PropTypes.array.isRequired,

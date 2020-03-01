@@ -19,33 +19,17 @@ export default (props) => {
 				name: 'list'
 			}
 		],
-		onSubmit: function onPortfolioFormSubmit (values)  {
-			console.log(values, 'skills form');
-			//passing values of this form up to container's component
-			const list = [
-				'category',
-				'list'
-			];
+		onSubmit: function onSkillsFormSubmit (packagedData)  {
+
+			packagedData['list'] = packagedData['list'].split(',').map(skill => {
+				return skill.trim();
+			});
+
 			props.onSave({
-				skills: list.reduce((acc, currentVal) => {
-					if(currentVal === 'list') {
-						acc = {
-							...acc,
-							[currentVal]: values[currentVal].split(',').map(skill => {
-								return skill.trim();
-							})
-						}
-					} else {
-						acc = {
-							...acc,
-							[currentVal]: values[currentVal]
-						}
-					}
-					return acc;
-				}, {})
+				skills: packagedData
 			});
 		},
-		onChange: function onPortfolioInputChanges (inputName, value) {
+		onChange: function onSkillsInputChanges (inputName, value) {
 			console.log('handling portfolio input changes');
 			console.log(inputName, value);
 		},

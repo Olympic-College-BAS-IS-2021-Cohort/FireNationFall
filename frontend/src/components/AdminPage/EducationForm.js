@@ -30,30 +30,15 @@ export default (props) => {
 				name: 'major'
 			}
 		],
-		onSubmit: function onPortfolioFormSubmit (values, ...rest)  {
-			console.log(values, 'educationform');
-			const list = [
-				'institution',
-				'startDateSchool',
-				'endDateSchool',
-				'major'
-			];
-			//passing values of this form up to container's component
-
-			//for each element in array
+		onSubmit: function onPortfolioFormSubmit (packagedData)  {
 			props.onSave({
-				education: list.reduce((acc, currentVal) => {
-					return {
-						...acc,
-						[currentVal]: values[currentVal]
-					}
-				}, {})
+				education: packagedData
 			});
 		},
-		// onChange: function onPortfolioInputChanges (inputName, value) {
-		// 	console.log('handling portfolio input changes');
-		// 	console.log(inputName, value);
-		// },
+		onChange: function onPortfolioInputChanges (inputName, value) {
+			console.log('handling portfolio input changes');
+			console.log(inputName, value);
+		},
 		btnName: props.btnName
 	};
 

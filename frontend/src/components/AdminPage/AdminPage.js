@@ -45,6 +45,7 @@ export default (props) => {
 				setComponentToRender(<Portfolio/>);
 				break;
 			case 1:
+				//TODO: pass in data here when editing portfolio
 				setComponentToRender(<Portfolio/>);
 				break;
 			case 2:

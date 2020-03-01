@@ -8,7 +8,7 @@ import FormBuilder from '../Form/FormBuilder';
 
 export default (props) => {
 
-	// const fileRef = useRef(null);
+	//
 
 	const formConfigs = {
 		fieldConfigs : [
@@ -16,20 +16,29 @@ export default (props) => {
 				label: 'Name',
 				placeholder: `Enter subject's name`,
 				control: 'input',
-				name: 'name'
+				name: 'name',
+				rules: {
+					required: true,
+				}
 			},
 			{
 				label: 'Picture',
 				placeholder: `select a picture file`,
 				control: 'input',
 				type: 'file',
-				name: 'picture'
+				name: 'picture',
+				rules: {
+					required: true
+				}
 			},
 			{
 				label: 'About Me',
 				placeholder: `Enter things about something`,
 				control: 'textarea',
-				name: 'about'
+				name: 'about',
+				rules: {
+					required: true
+				}
 			},
 			{
 				label: 'Published',
@@ -39,12 +48,10 @@ export default (props) => {
 			}
 
 		],
-		onSubmit: async function onPortfolioFormSubmit (values, ...rest)  {
-			console.log('handling portfolio form');
-			console.log(rest, 'rest');
-			console.log(values, 'aboutform');
+		onSubmit: function onPortfolioFormSubmit (packagedData)  {
+
 			//passing values of this form up to container's component
-			props.onSave(values);
+			props.onSave(packagedData);
 		},
 		onChange: function onPortfolioInputChanges (e) {
 			console.log('handling portfolio input changes');

@@ -11,6 +11,7 @@ import ExperienceForm from './ExperienceForm';
 import SkillsForm from './SkillsForm';
 
 import AfterSubmit from './AfterSubmit';
+import {map} from 'react-bootstrap/cjs/ElementChildren';
 
 
 export default (props) => {
@@ -22,7 +23,7 @@ export default (props) => {
 
 	const {getTokenSilently} = useAuth0();
 
-	const formsArray = [
+	let formsArray = [
 		AboutForm,
 		EducationForm,
 		ExperienceForm,
@@ -37,7 +38,6 @@ export default (props) => {
 
 
 	const onSaveHandler = async (values) => {
-		console.log('onsavehandler', values);
 		if (form.formIndex < formsArray.length - 2) {
 			setForm(prevState => {
 				return {
@@ -101,19 +101,30 @@ export default (props) => {
 	// 	Component = formsArray[form.formIndex]({onClick: () => console.log('clicked')})
 	// }
 
-	if(form.formIndex === formsArray.length - 1) {
-		Component = formsArray[form.formIndex]({onClick: () => console.log('clicked')})
-	} else if(form.formIndex === formsArray.length - 2) {
-		Component = formsArray[form.formIndex]({onSave: onSaveHandler, btnName: 'Submit'});
-	} else {
-		Component = formsArray[form.formIndex]({onSave: onSaveHandler, btnName: 'Save'});
-	}
+	// if(form.formIndex === formsArray.length - 1) {
+	// 	Component = formsArray[form.formIndex]({onClick: () => console.log('clicked')})
+	// } else if(form.formIndex === formsArray.length - 2) {
+	// 	Component = formsArray[form.formIndex]({onSave: onSaveHandler, btnName: 'Submit'});
+	// } else {
+	// 	Component = formsArray[form.formIndex]({onSave: onSaveHandler, btnName: 'Save'});
+	// }
 
+	//this Portfolio component will receive data as part of props
+
+	formsArray = formsArray.map((form, index) => {
+		if(index === formsArray.length - 1) {
+			return form({onClick: () => console.log('clicked')})
+		}
+		if(index === formsArray.length - 2) {
+			return form({onSave: onSaveHandler, btnName: 'Submit'})
+		}
+		return form({onSave: onSaveHandler, btnName: 'Save'})
+	});
 	//
 
 	return (
 		<>
-			{Component}
+			{formsArray[form.formIndex]}
 		</>
 	)
 }
