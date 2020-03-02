@@ -36,15 +36,15 @@ export default (props) => {
 				placeholder: `Enter things about something`,
 				control: 'textarea',
 				name: 'about',
-				rules: {
-					required: true
-				}
 			},
 			{
 				label: 'Published',
 				control: 'input',
 				type: 'checkbox',
-				name: 'published'
+				name: 'published',
+				rules: {
+					required: true
+				}
 			}
 
 		],
@@ -54,8 +54,8 @@ export default (props) => {
 			props.onSave(packagedData);
 		},
 		onChange: function onPortfolioInputChanges (e) {
-			console.log('handling portfolio input changes');
-			console.log(e , 'event');
+			// console.log('handling portfolio input changes');
+			// console.log(e.target , 'event');
 		},
 		btnName: props.btnName,
 		enctype: 'multipart/form-data'
