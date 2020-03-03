@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-import PortfolioContext from '../../contexts/PortfolioContext';
+import PortfolioContext from '../../contexts/PortfoliosContext';
 import {useAuth0} from '../../react-auth0-spa';
 
 
@@ -32,9 +32,21 @@ export default (props) => {
 	];
 
 	const [form, setForm] = useState({
-		formIndex : 0,
+		formIndex: 0,
 		formData: null
 	});
+
+	function buildFormData(formData, data, parentKey) {
+		if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+			Object.keys(data).forEach(key => {
+				buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+			});
+		} else {
+			const value = data == null ? '' : data;
+
+			formData.append(parentKey, value);
+		}
+	}
 
 
 	const onSaveHandler = async (values) => {
@@ -67,14 +79,14 @@ export default (props) => {
 			// 	scope: 'openid profile read:timesheets create:timesheets'
 			// }
 
+			const formData = new FormData();
 
-			axios.post('https://localhost:3001/api/portfolios', {
-				...data,
-				experience: [data.experience],
-				education: [data.education],
-				skills: [data.skills]
-			}, {
+			buildFormData(formData, data);
+
+
+			axios.post('https://localhost:3001/api/portfolios', formData, {
 				headers: {
+					'Content-Type': 'multipart/form-data',
 					Authorization: `Bearer ${token}`
 				}
 			}).then(result => {
@@ -112,10 +124,10 @@ export default (props) => {
 	//this Portfolio component will receive data as part of props
 
 	formsArray = formsArray.map((form, index) => {
-		if(index === formsArray.length - 1) {
+		if (index === formsArray.length - 1) {
 			return form({onClick: () => console.log('clicked')})
 		}
-		if(index === formsArray.length - 2) {
+		if (index === formsArray.length - 2) {
 			return form({onSave: onSaveHandler, btnName: 'Submit'})
 		}
 		return form({onSave: onSaveHandler, btnName: 'Save'})

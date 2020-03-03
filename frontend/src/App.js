@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Segment} from 'semantic-ui-react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+
+import axios from 'axios';
+
+import {useAuth0} from './react-auth0-spa';
 
 import Home from './components/Home/Home';
 import Portfolios from './components/Portfolios';
@@ -13,7 +17,22 @@ import AdminPage from './components/AdminPage/AdminPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import PrivateRoute from './components/HOC/PrivateRoute';
 
+import PortfoliosContext from './contexts/PortfoliosContext';
+
 function App() {
+
+	const [portfolios, setPortfolios] = useState(null);
+	//getting accessToken
+
+	useEffect(() => {
+		axios.get('https://localhost:3001/api/portfolios').then(result => {
+			console.log(result);
+			setPortfolios(result.data);
+		}).catch(err => {
+			console.log(err);
+		});
+	},[]);
+
 	return (
 		<BrowserRouter>
 			<Layout>
@@ -27,12 +46,14 @@ function App() {
 								<div style={{height: '75px'}}>
 									<Navigation/>
 								</div>
-								<Switch>
-									<Route path="/portfolios/:id" render={(props) => <Portfolio {...props}/>}/>
-									<Route path="/portfolios" render={props => <Portfolios {...props}/>}/>
-									<Route exact path="/" render={props => <Home {...props}/>}/>
-									<Route render={() => <h1>Page not Found!</h1>}/>
-								</Switch>
+								<PortfoliosContext.Provider value={{portfolios}}>
+									<Switch>
+										<Route path="/portfolios/:id" render={(props) => <Portfolio {...props}/>}/>
+										<Route path="/portfolios" render={props => <Portfolios {...props}/>}/>
+										<Route exact path="/" render={props => <Home {...props}/>}/>
+										<Route render={() => <h1>Page not Found!</h1>}/>
+									</Switch>
+								</PortfoliosContext.Provider>
 							</>
 						)
 					}}/>

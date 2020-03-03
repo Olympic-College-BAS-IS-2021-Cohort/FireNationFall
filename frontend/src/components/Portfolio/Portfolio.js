@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Image, Segment, Header, Grid, Container} from 'semantic-ui-react';
 
 //Todo: move inline styles to separate modules
 //Todo: refactor the several containers to its own component.
+
+import PortfoliosContext from '../../contexts/PortfoliosContext';
 
 
 const dummyData = {
@@ -41,14 +43,21 @@ const dummyData = {
 
 
 export default (props) => {
+
+	const value = useContext(PortfoliosContext);
+
+	console.log(props);
+	// console.log();
+	const portfolio = value.portfolios[props.match.params.id];
+
 	return (
 		<Container fluid style={{padding: "0px"}}>
 			<Grid centered>
 				<Grid.Row centered style={{minHeight: "100vh"}}>
 					<Segment basic>
-						<Image src={'/avatars/T.png'} size={'small'} centered circular/>
+						<Image src={`/${portfolio.pictureUrl}`} size={'small'} centered circular/>
 						<Header as={'h2'} textAlign={'center'}>
-							<Header.Content>Tai Ng</Header.Content>
+							<Header.Content>{portfolio.name}</Header.Content>
 						</Header>
 					</Segment>
 				</Grid.Row>

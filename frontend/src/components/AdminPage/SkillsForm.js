@@ -25,13 +25,16 @@ export default (props) => {
 				return skill.trim();
 			});
 
+			packagedData = formConfigs.fieldConfigs.reduce((acc, currentConfig) => {
+				return {
+					...acc,
+					[currentConfig.name] : packagedData[currentConfig.name]
+				}
+			}, {});
+
 			props.onSave({
 				skills: packagedData
 			});
-		},
-		onChange: function onSkillsInputChanges (inputName, value) {
-			console.log('handling portfolio input changes');
-			console.log(inputName, value);
 		},
 		btnName: props.btnName
 	};

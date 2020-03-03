@@ -1,5 +1,5 @@
 import React from 'react';
-
+import * as Yup from 'yup';
 import FormBuilder from '../Form/FormBuilder';
 
 
@@ -38,16 +38,23 @@ export default (props) => {
 			}
 		],
 		onSubmit: function onPortfolioFormSubmit (packagedData)  {
+			packagedData = formConfigs.fieldConfigs.reduce((acc, currentConfig) => {
+				return {
+					...acc,
+					[currentConfig.name] : packagedData[currentConfig.name]
+				}
+			}, {});
+
 			props.onSave({
 				experience: packagedData
 			});
 		},
-		onChange: function onPortfolioInputChanges (inputName, value) {
-			console.log('handling portfolio input changes');
-			console.log(inputName, value);
-		},
 		btnName: props.btnName
 	};
+
+	const pluckData = (allData) => {
+
+	}
 
 	return (
 		<>
