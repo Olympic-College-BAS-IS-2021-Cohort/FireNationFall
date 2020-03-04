@@ -3,6 +3,9 @@
 #idea
 .idea/
 
+#images
+images/
+
 #localhost
 localhost*
 
