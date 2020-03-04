@@ -6,7 +6,7 @@ const portfolioRouter = require('./portfolios');
 const articleRouter = require('./articles');
 
 router.use('/portfolios', (req, res, next) => {
-	console.log('i got to here');
+	console.log(req.file);
 	next();
 }, portfolioRouter);
 router.use('/articles', articleRouter);

@@ -32,14 +32,18 @@ const getPortfolioById = (req, res ,next) => {
 
 
 const postPortfolio = (req, res ,next) => {
+	const image = req.file;
 	const data = req.body;
+
+	if(image) {
+		data.pictureUrl = image.path;
+	}
+
 	const newPortfolio = new Portfolio(data);
 
-	newPortfolio.save(err => {
+	newPortfolio.save(null, err => {
 		if(err) {
-			 res.status(500).send({
-				err: 'There was an error creating your portfolio'
-			})
+			console.log(err);
 		}
 	});
 	res.status(201).send('portfolio created');

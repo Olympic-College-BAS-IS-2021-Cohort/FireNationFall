@@ -13,13 +13,28 @@ const portfolioSchema = new Schema({
 		minlength: [1, 'A name must have at least 1 character']
 	}, //todo: use a User schema and get the name out here
 	pictureUrl: String,
+	metaInfo: {
+		type: String,
+		required: true
+	},
+	shortDescription: {
+		type: String,
+		required: true
+	},
 	about: String,
-	experience: [{
-		startDate: {
+	experience: [
+		{
+			company: {
+				type: String,
+				required: true
+			}
+		},
+		{
+		startDateJob: {
 			type: Date,
 			required: true
 		},
-		endDate: Date,
+		endDateJob: Date,
 		position: {
 			type: String,
 			required : true,
@@ -33,8 +48,8 @@ const portfolioSchema = new Schema({
 	}],
 	education: [{
 		institution: String,
-		startDate: Date,
-		endDate: Date,
+		startDateSchool: Date,
+		endDateSchool: Date,
 		major: String
 	}],
 	skills: [{
