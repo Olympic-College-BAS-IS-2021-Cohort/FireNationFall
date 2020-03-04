@@ -3,7 +3,7 @@ import {Accordion, Icon, Grid, Segment, List, Header} from 'semantic-ui-react';
 import {useAuth0} from '../../react-auth0-spa';
 
 import Portfolio from './Portfolio';
-import AboutForm from './PortfolioForms/AboutForm';
+import EditPortfolioPage from './EditPortfolioPage/EditPortfolioPage';
 import ArticleForm from './ArticleForms/ArticleForm';
 import helpers from './helpers';
 
@@ -46,7 +46,7 @@ export default (props) => {
 				break;
 			case 1:
 				//TODO: pass in data here when editing portfolio
-				setComponentToRender(<Portfolio/>);
+				setComponentToRender(<EditPortfolioPage/>);
 				break;
 			case 2:
 				setComponentToRender(ArticleForm);

@@ -59,8 +59,6 @@ const FormBuilder = (props) => {
 
 	const {formGroups, onChange, onSubmit, ...formProps} = props;
 
-	const [validForm, setValidForm] = useState(null);
-
 	const fieldConfigs = formGroups.reduce((acc, formGroup) => {
 		return acc.concat(formGroup);
 	});
