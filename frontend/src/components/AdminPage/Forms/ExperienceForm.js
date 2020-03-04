@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
-import FormBuilder from '../Form/FormBuilder';
+import FormBuilder from '../../Form/FormBuilder';
 
 
 

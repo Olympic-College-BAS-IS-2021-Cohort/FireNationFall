@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import {Step, Button} from 'semantic-ui-react';
 
 
-import FormBuilder from '../Form/FormBuilder';
+import FormBuilder from '../../Form/FormBuilder';
 
 
 export default (props) => {

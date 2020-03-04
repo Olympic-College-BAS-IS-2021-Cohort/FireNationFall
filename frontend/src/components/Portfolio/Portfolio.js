@@ -5,7 +5,9 @@ import {Image, Segment, Header, Grid, Container} from 'semantic-ui-react';
 //Todo: refactor the several containers to its own component.
 
 import PortfoliosContext from '../../contexts/PortfoliosContext';
-
+import EducationSection from './EducationSection/EducationSection';
+import ExperienceSection from './ExperienceSection/ExperienceSection';
+import SkillsSection from './SkillsSection/SkillsSection';
 
 const dummyData = {
 	about: {
@@ -66,9 +68,7 @@ export default (props) => {
 						<Header as={'h1'}>
 							About Me
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						<p>{portfolio.about}</p>
 					</Container>
 				</Grid.Row>
 				<Grid.Row centered style={{minHeight: "100vh", background: "linear-gradient(to bottom, #34c24c, #0b991e)"}}>
@@ -76,9 +76,9 @@ export default (props) => {
 						<Header as={'h1'}>
 							Experience
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						{portfolio.experience.map(experience => {
+							return <ExperienceSection {...experience}/>
+						})}
 					</Container>
 				</Grid.Row>
 				<Grid.Row centered style={{minHeight: "100vh"}}>
@@ -86,9 +86,9 @@ export default (props) => {
 						<Header as={'h1'}>
 							Education
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						{portfolio.education.map(education => {
+							return <EducationSection {...education}/>
+						})}
 					</Container>
 				</Grid.Row>
 				<Grid.Row centered style={{minHeight: "100vh"}}>
@@ -96,9 +96,11 @@ export default (props) => {
 						<Header as={'h1'}>
 							Skills
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						{portfolio.skills.map(skillList => {
+							return (
+								<SkillsSection {...skillList}/>
+							)
+						})}
 					</Container>
 				</Grid.Row>
 				<Grid.Row centered style={{minHeight: "100vh"}}>
@@ -106,9 +108,7 @@ export default (props) => {
 						<Header as={'h1'}>
 							Contact Me
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						<p>Contact Info goes here</p>
 					</Container>
 				</Grid.Row>
 			</Grid>

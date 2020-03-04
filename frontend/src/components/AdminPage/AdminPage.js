@@ -3,8 +3,8 @@ import {Accordion, Icon, Grid, Segment, List, Header} from 'semantic-ui-react';
 import {useAuth0} from '../../react-auth0-spa';
 
 import Portfolio from './Portfolio';
-import AboutForm from './AboutForm';
-import ArticleForm from './ArticleForm';
+import AboutForm from './Forms/AboutForm';
+import ArticleForm from './Forms/ArticleForm';
 import helpers from './helpers';
 
 export default (props) => {

@@ -22,8 +22,9 @@ import PortfoliosContext from './contexts/PortfoliosContext';
 function App() {
 
 	const [portfolios, setPortfolios] = useState(null);
-	//getting accessToken
 
+	//setting context data
+	//after every render or re-render
 	useEffect(() => {
 		axios.get('https://localhost:3001/api/portfolios').then(result => {
 			console.log(result);
@@ -31,14 +32,12 @@ function App() {
 		}).catch(err => {
 			console.log(err);
 		});
-	},[]);
+	});
 
 	return (
 		<BrowserRouter>
 			<Layout>
 				<Switch>
-					{/*<Route path={'/not-log-in'} render={props => <LoginPage {...props}/>}/>*/}
-					{/*<Route path={'/admin/not-log-in'} render={props => <LoginPage {...props}/>}/>*/}
 					<PrivateRoute path={'/admin'} component={AdminPage}/>
 					<Route path={'/'} render={props => {
 						return (

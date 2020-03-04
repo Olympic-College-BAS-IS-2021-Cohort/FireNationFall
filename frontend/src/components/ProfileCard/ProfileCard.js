@@ -10,10 +10,10 @@ const ProfileCard = (props) => {
 			<Card.Content textAlign={'center'}>
 				<Card.Header>{props.name}</Card.Header>
 				<Card.Meta>
-					<span>Full-stack engineer</span>
+					<span>{props.metaInfo}</span>
 				</Card.Meta>
 				<Card.Description>
-					Tai is a full-stack web engineer
+					{props.shortDescription}
 				</Card.Description>
 			</Card.Content>
 			<Card.Content extra textAlign={'center'}>
