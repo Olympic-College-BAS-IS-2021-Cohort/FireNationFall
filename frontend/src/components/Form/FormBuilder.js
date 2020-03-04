@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'
-import {Button, Form, FormField} from 'semantic-ui-react'
+import {Button, Form, FormField, FormGroup} from 'semantic-ui-react'
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -57,34 +57,13 @@ const formConfigs = {
 
 const FormBuilder = (props) => {
 
-	const {fieldConfigs, onChange, onSubmit, ...formProps} = props;
+	const {formGroups, onChange, onSubmit, ...formProps} = props;
 
 	const [validForm, setValidForm] = useState(null);
 
-	const handleOnSubmit = (e) => {
-		e.preventDefault();
-		//check if every fields are valid before submitting
-
-
-		// const packagedData = fieldConfigs.reduce((acc, fieldConfig) => {
-		//
-		// 	if(fieldConfig.type && fieldConfig.type === 'file') {
-		// 		acc = {
-		// 			...acc,
-		// 			[fieldConfig.name] : e.target[fieldConfig.name].files[0]
-		// 		}
-		// 	} else {
-		// 		acc = {
-		// 			...acc,
-		// 			[fieldConfig.name] : e.target[fieldConfig.name].value
-		// 		};
-		// 	}
-		//
-		// 	return acc;
-		// },{});
-
-		// onSubmit(packagedData);
-	};
+	const fieldConfigs = formGroups.reduce((acc, formGroup) => {
+		return acc.concat(formGroup);
+	});
 
 	const initialValues = fieldConfigs.reduce((acc, fieldConfig) => {
 		return {
@@ -118,16 +97,23 @@ const FormBuilder = (props) => {
 					return (
 						<Form onSubmit={props.handleSubmit} {...formProps}>
 							{
-								fieldConfigs.map(fieldConfig => {
+								formGroups.map(formGroup => {
 
-									let Component = <CustomField key={fieldConfig.name} {...fieldConfig}/>;
+									return (
+										<FormGroup widths={'equal'}>
+											{formGroup.map(fieldConfig => {
+												let Component = <CustomField key={fieldConfig.name} {...fieldConfig}/>;
 
-									if(fieldConfig.type === 'file') {
-										Component = <FormField key={fieldConfig.name} {...fieldConfig} onChange={e => {
-											props.setFieldValue('picture', e.currentTarget.files[0])
-										}}/>
-									}
-									return Component;
+												if(fieldConfig.type === 'file') {
+													Component = <FormField key={fieldConfig.name} {...fieldConfig} onChange={e => {
+														props.setFieldValue('picture', e.currentTarget.files[0])
+													}}/>
+												}
+												return Component;
+											})}
+										</FormGroup>
+									)
+
 								})
 							}
 							<Button style={{justifySelf: 'right'}} type={'submit'}>{formProps.btnName}</Button>

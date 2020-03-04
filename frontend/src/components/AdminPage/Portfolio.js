@@ -5,10 +5,10 @@ import PortfolioContext from '../../contexts/PortfoliosContext';
 import {useAuth0} from '../../react-auth0-spa';
 
 
-import AboutForm from './Forms/AboutForm';
-import EducationForm from './Forms/EducationForm';
-import ExperienceForm from './Forms/ExperienceForm';
-import SkillsForm from './Forms/SkillsForm';
+import AboutForm from './PortfolioForms/AboutForm';
+import EducationForm from './PortfolioForms/EducationForm';
+import ExperienceForm from './PortfolioForms/ExperienceForm';
+import SkillsForm from './PortfolioForms/SkillsForm';
 
 import AfterSubmit from './AfterSubmit';
 import {map} from 'react-bootstrap/cjs/ElementChildren';
