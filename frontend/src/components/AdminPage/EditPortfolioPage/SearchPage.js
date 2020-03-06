@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Grid, GridColumn, Button, Form, FormInput, Header} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import {Grid, GridColumn, Button, Form, FormInput, Header, ItemGroup} from 'semantic-ui-react';
+import ResultLink from './ResultLink';
 
 import axios from 'axios';
 
@@ -12,10 +12,14 @@ export default props => {
 		//send axios request for resources
 		e.preventDefault();
 
-		axios.get(`/portfolios?name=${e.target.name.value}`)
+		console.log(e.target.name.value);
+
+		axios.get(`/api/portfolios/?name=${e.target.name.value}`)
 			.then(result => {
 				console.log(result);
-
+				//set result to list of result links
+				//when the LInk is clicked, set parent context to the data
+				setResults(result.data);
 			})
 			.catch(e => {
 				console.log(e);
@@ -38,9 +42,11 @@ export default props => {
 				</Grid>
 			</Form>
 			{results && <Header as={'h3'}>Found {results.length} {results.length > 1 ? 'results' : 'result'}:</Header>}
-			{results && results.map(result => {
-				return <p>result</p>
+			{results && <ItemGroup divided link>
+				{results.map(result => {
+				return <ResultLink {...result}/>
 			})}
+			</ItemGroup>}
 		</>
 	);
 }
