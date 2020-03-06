@@ -8,34 +8,39 @@ export default props => {
 
 	const [results, setResults] = useState(null);
 
-	const handleOnSubmit = (e, ...rest) => {
+	const handleOnSubmit = (e) => {
 		//send axios request for resources
 		e.preventDefault();
-		console.log(e.name.value);
-		console.log(rest);
-	};
 
-	return(
+		axios.get(`/portfolios?name=${e.target.name.value}`)
+			.then(result => {
+				console.log(result);
+
+			})
+			.catch(e => {
+				console.log(e);
+			});
+	};
+	return (
 		<>
-				<Header as={'h2'}>Search Portfolios</Header>
-				<Form onSubmit={handleOnSubmit}>
-					<Grid columns={2}>
-						<GridColumn>
-							<FormInput
-								label={'Search'}
-								placeholder={'Enter search term'}
-								name={'searchTerm'}
-							/>
-						</GridColumn>
-						<GridColumn>
-							<Button type={'submit'}>Search</Button>
-						</GridColumn>
-					</Grid>
-				</Form>
-				{results && <Header as={'h3'}>Found {results.length} {results.length > 1 ? 'results': 'result'}:</Header>}
-				{results && results.map(result => {
-					return <p>result</p>
-				})}
+			<Header as={'h2'}>Search Portfolios</Header>
+			<Form onSubmit={handleOnSubmit}>
+				<Grid columns={2}>
+					<GridColumn verticalAlign={'middle'}>
+						<FormInput
+							placeholder={'Enter search term'}
+							name={'name'}
+						/>
+					</GridColumn>
+					<GridColumn verticalAlign={'middle'}>
+						<Button type={'submit'}>Search</Button>
+					</GridColumn>
+				</Grid>
+			</Form>
+			{results && <Header as={'h3'}>Found {results.length} {results.length > 1 ? 'results' : 'result'}:</Header>}
+			{results && results.map(result => {
+				return <p>result</p>
+			})}
 		</>
 	);
 }
