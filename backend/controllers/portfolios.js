@@ -2,7 +2,14 @@ const Portfolio = require('../models/portfolio');
 
 
 const getPortfolios = (req, res, next) => {
-	Portfolio.find({}, (err, portfolios) => {
+	// console.log('req.query: ', req.query);
+	const condition = {};
+	const {name} = req.query;
+	if(name) {
+		 condition['name'] = new RegExp(`${name.toLowerCase()}`, 'i');
+	}
+
+	Portfolio.find(condition, (err, portfolios) => {
 		if(err) {
 			return res.status(500).send({
 				err: 'There was an error fetching portfolios'
