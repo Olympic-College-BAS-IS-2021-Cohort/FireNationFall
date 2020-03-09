@@ -70,6 +70,8 @@ const FormBuilder = (props) => {
 		}
 	}, {});
 
+	console.log(initialValues);
+
 
 	//package all yup validations into a Yup object that Formik can utilize.
 	const validationSchema = Yup.object(fieldConfigs.reduce((acc, fieldConfig) => {

@@ -5,7 +5,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import axios from 'axios';
 
-import {useAuth0} from './react-auth0-spa';
+// import {useAuth0} from './react-auth0-spa';
 
 import Home from './components/Home/Home';
 import Portfolios from './components/Portfolios';
@@ -26,7 +26,7 @@ function App() {
 	//setting context data
 	//after every render or re-render
 	useEffect(() => {
-		axios.get('https://localhost:3001/api/portfolios').then(result => {
+		axios.get('/api/portfolios').then(result => {
 			console.log(result);
 			setPortfolios(result.data);
 		}).catch(err => {

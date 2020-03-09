@@ -72,7 +72,7 @@ export default (props) => {
 
 	return (
 		<>
-			<h1>Experience</h1>
+			<h3>Experience</h3>
 			<FormBuilder {...formConfigs}/>
 		</>
 	)

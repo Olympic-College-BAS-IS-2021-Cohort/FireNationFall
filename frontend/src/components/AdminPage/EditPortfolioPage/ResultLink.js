@@ -6,13 +6,14 @@ import {Link} from 'react-router-dom';
 
 export default props => {
 
+	console.log(props, 'in here');
 	return (
-		<Item onClick={() => console.log('im clicked')}>
+		<Item onClick={() => props.onClick(props)}>
 			<ItemContent>
-				<ItemHeader>{props.name}</ItemHeader>
+				<ItemHeader as={'a'}>{props.name}</ItemHeader>
 				<ItemDescription>{props.shortDescription}</ItemDescription>
 				<ItemExtra>
-					<Button primary floated={'right'} onClick={() => console.log('edit button clicked')}>
+					<Button primary floated={'right'}>
 						Edit
 					</Button>
 				</ItemExtra>

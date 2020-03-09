@@ -8,6 +8,11 @@ export default props => {
 
 	const [results, setResults] = useState(null);
 
+	//it is in fact _id for mongoose
+	// const handleItemClick = id => {
+	// 	console.log(id, 'here');
+	// };
+
 	const handleOnSubmit = (e) => {
 		//send axios request for resources
 		e.preventDefault();
@@ -42,9 +47,9 @@ export default props => {
 				</Grid>
 			</Form>
 			{results && <Header as={'h3'}>Found {results.length} {results.length > 1 ? 'results' : 'result'}:</Header>}
-			{results && <ItemGroup divided link>
+			{results && <ItemGroup divided>
 				{results.map(result => {
-				return <ResultLink {...result}/>
+				return <ResultLink key={result.name} {...result} onClick={props.onItemClick}/>
 			})}
 			</ItemGroup>}
 		</>

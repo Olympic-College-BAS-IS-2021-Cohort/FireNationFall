@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {Header} from 'semantic-ui-react';
+
 import axios from 'axios';
 
 import PortfolioContext from '../../contexts/PortfoliosContext';
@@ -11,25 +13,38 @@ import ExperienceForm from './PortfolioForms/ExperienceForm';
 import SkillsForm from './PortfolioForms/SkillsForm';
 
 import AfterSubmit from './AfterSubmit';
-import {map} from 'react-bootstrap/cjs/ElementChildren';
 
 
 export default (props) => {
 
-	// state = {
-	// 	forms:,
-	// 	currentFormIndex : 0
-	// };
+	console.log('props in Portfolio', props);
+	let aboutInitialData, experienceInitialData, educationInitialData, skillsInitialData;
 
+	if (props.data) {
+		const {education, experience, skills, about, name, pictureUrl, metaInfo, shortDescription, published} = props.data;
+		aboutInitialData = {
+			about,
+			name,
+			pictureUrl,
+			metaInfo,
+			shortDescription,
+			published
+		}
+		experienceInitialData = experience;
+		educationInitialData = education;
+		skillsInitialData = skills;
+	}
 	const {getTokenSilently} = useAuth0();
 
-	let formsArray = [
-		AboutForm,
-		EducationForm,
-		ExperienceForm,
-		SkillsForm,
-		AfterSubmit
-	];
+	// formsArray = formsArray.map((form, index) => {
+	// 	if (index === formsArray.length - 1) {
+	// 		return form({onClick: () => console.log('clicked')})
+	// 	}
+	// 	if (index === formsArray.length - 2) {
+	// 		return form({onSave: onSaveHandler, btnName: 'Submit'})
+	// 	}
+	// 	return form({onSave: onSaveHandler, btnName: 'Save'})
+	// });
 
 	const [form, setForm] = useState({
 		formIndex: 0,
@@ -101,21 +116,20 @@ export default (props) => {
 			})
 		}
 	};
-
-	//FIXME: rendering is not correct.
-
-	let Component = null;
 	//this Portfolio component will receive data as part of props
 
-	formsArray = formsArray.map((form, index) => {
-		if (index === formsArray.length - 1) {
-			return form({onClick: () => console.log('clicked')})
-		}
-		if (index === formsArray.length - 2) {
-			return form({onSave: onSaveHandler, btnName: 'Submit'})
-		}
-		return form({onSave: onSaveHandler, btnName: 'Save'})
-	});
+	//FIXME: passing only the first element in arrays
+	let formsArray = [
+		AboutForm({
+			onSave: onSaveHandler,
+			btnName: 'Save',
+			initialData: aboutInitialData
+		}),
+		EducationForm({onSave: onSaveHandler, btnName: 'Save', initialData: educationInitialData}),
+		ExperienceForm({onSave: onSaveHandler, btnName: 'Save', initialData: experienceInitialData}),
+		SkillsForm({onSave: onSaveHandler, btnName: 'Submit', initialData: skillsInitialData}),
+		AfterSubmit()
+	];
 	//
 
 	return (
