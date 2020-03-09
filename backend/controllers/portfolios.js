@@ -57,6 +57,7 @@ const postPortfolio = (req, res ,next) => {
 };
 
 const updatePortfolio = (req, res, next) => {
+	console.log('reached');
 	const {id} = req.params;
 	const updatedPortfolio = req.body;
 

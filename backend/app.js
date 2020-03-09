@@ -62,9 +62,9 @@ app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 app.use('/api', apiRoutes);
 
 
-app.use('/callback', (req, res, next) => {
-	res.redirect('https://localhost:3001/admin');
-});
+// app.use('/callback', (req, res, next) => {
+// 	res.redirect('https://localhost:3001/admin');
+// });
 
 app.use('/images', express.static(path.join(__dirname,'images')));
 
@@ -79,8 +79,8 @@ mongoose.connect('mongodb+srv://ndhuutai:deptraI1@fire-nation-dev-cluster-swtcr.
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 }).then(() => {
-	app.listen(3001, () => {
-		console.log(`running on port ${3001}`);
+	app.listen(process.env.PORT, () => {
+		console.log(`running normally`);
 	});
 }).catch(e => {
 	console.log('error connecting to mongo database');
