@@ -18,11 +18,11 @@ let app = express();
 
 
 const apiRoutes = require('./routes/api');
-
-const key = fs.readFileSync('./localhost-key.pem');
-const cert = fs.readFileSync('./localhost.pem');
-
-const options = {key, cert};
+//
+// const key = fs.readFileSync('./localhost-key.pem');
+// const cert = fs.readFileSync('./localhost.pem');
+//
+// const options = {key, cert};
 
 //getting user profile
 // app.get('/profile', requiresAuth(), (req, res) => {
@@ -73,7 +73,7 @@ app.get('*', function getHome(req, res) {
 });
 
 
-app = https.createServer(options, app);
+// app = https.createServer(options, app);
 
 mongoose.connect('mongodb+srv://ndhuutai:deptraI1@fire-nation-dev-cluster-swtcr.mongodb.net/firenation?retryWrites=true&w=majority', {
 	useNewUrlParser: true,
