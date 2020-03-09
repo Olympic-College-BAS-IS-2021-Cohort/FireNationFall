@@ -57,7 +57,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 //todo: have the file name saved somewhere that both the front end and backend can access, so the naming is consistent
 app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('picture'));
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+app.use(express.static(path.join(__dirname, '.', 'public', 'build')));
 
 app.use('/api', apiRoutes);
 
@@ -69,7 +69,7 @@ app.use('/api', apiRoutes);
 app.use('/images', express.static(path.join(__dirname,'images')));
 
 app.get('*', function getHome(req, res) {
-	res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
+	res.sendFile(path.join(__dirname, '.', 'public', 'build', 'index.html'));
 });
 
 
