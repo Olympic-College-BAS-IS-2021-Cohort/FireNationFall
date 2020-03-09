@@ -16,14 +16,14 @@ const onRedirectCallback = appState => {
 	);
 };
 
-console.log(process.env);
-console.log(process.env.DOMAIN);
+// console.log(process.env);
+// console.log(process.env.REACt);
 
 ReactDOM.render( <Auth0Provider
-	domain={process.env.DOMAIN}
-	client_id={process.env.CLIENT_ID}
+	domain={process.env.REACT_APP_DOMAIN}
+	client_id={process.env.REACT_APP_CLIENT_ID}
 	redirect_uri={`${window.location.origin}/admin`}
-	audience={process.env.AUDIENCE}
+	audience={process.env.REACT_APP_AUDIENCE}
 	onRedirectCallback={onRedirectCallback}
 >
 	<App />
