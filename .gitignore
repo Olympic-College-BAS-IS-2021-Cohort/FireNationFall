@@ -2,6 +2,7 @@
 
 .env
 auth_config.json
+.build/
 
 #idea
 .idea/
