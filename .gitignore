@@ -2,7 +2,7 @@
 
 .env
 auth_config.json
-.build/
+#.build/
 
 #idea
 .idea/
