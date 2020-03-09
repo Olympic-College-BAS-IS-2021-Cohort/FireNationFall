@@ -3,7 +3,7 @@ const jwksRsa = require('jwks-rsa');
 
 const authConfig = {
 	domain: `${process.env.AUTH_DOMAIN}`,
-	audience: `${process.env.PORT}/api`
+	audience: `https://fire-nation.herokuapp.com/api`
 };
 
 
