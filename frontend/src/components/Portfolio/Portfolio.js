@@ -47,9 +47,6 @@ const dummyData = {
 export default (props) => {
 
 	const value = useContext(PortfoliosContext);
-
-	console.log(props);
-	// console.log();
 	const portfolio = value.portfolios[props.match.params.id];
 
 	return (

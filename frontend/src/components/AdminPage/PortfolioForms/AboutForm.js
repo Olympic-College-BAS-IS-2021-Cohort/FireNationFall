@@ -10,7 +10,6 @@ import FormBuilder from '../../Form/FormBuilder';
 export default (props) => {
 
 	let about, name, pictureUrl, metaInfo, shortDescription, published ;
-	console.log(props, 'about form props');
 	if(props.initialData) {
 		about = props.initialData.about;
 		name = props.initialData.name;

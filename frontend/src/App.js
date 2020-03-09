@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Segment} from 'semantic-ui-react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import axios from 'axios';
-
-// import {useAuth0} from './react-auth0-spa';
 
 import Home from './components/Home/Home';
 import Portfolios from './components/Portfolios';
@@ -14,7 +11,6 @@ import Layout from './components/Layout/Layout';
 import Navigation from './components/Navigation/Navigation';
 
 import AdminPage from './components/AdminPage/AdminPage';
-import LoginPage from './components/LoginPage/LoginPage';
 import PrivateRoute from './components/HOC/PrivateRoute';
 
 import PortfoliosContext from './contexts/PortfoliosContext';

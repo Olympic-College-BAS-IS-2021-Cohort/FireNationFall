@@ -18,9 +18,10 @@ import AfterSubmit from './AfterSubmit';
 export default (props) => {
 
 	console.log('props in Portfolio', props);
-	let aboutInitialData, experienceInitialData, educationInitialData, skillsInitialData;
+	let aboutInitialData, experienceInitialData, educationInitialData, skillsInitialData, isEditing;
 
 	if (props.data) {
+		isEditing = true;
 		const {education, experience, skills, about, name, pictureUrl, metaInfo, shortDescription, published} = props.data;
 		aboutInitialData = {
 			about,
@@ -29,7 +30,7 @@ export default (props) => {
 			metaInfo,
 			shortDescription,
 			published
-		}
+		};
 		experienceInitialData = experience;
 		educationInitialData = education;
 		skillsInitialData = skills;
@@ -99,21 +100,40 @@ export default (props) => {
 			buildFormData(formData, data);
 
 
-			axios.post('https://localhost:3001/api/portfolios', formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-					Authorization: `Bearer ${token}`
-				}
-			}).then(result => {
-				console.log(result);
-				setForm(prevState => {
-					return {
-						formIndex: prevState.formIndex + 1
+			if(!isEditing) {
+				axios.post('/api/portfolios', formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+						Authorization: `Bearer ${token}`
 					}
-				});
-			}).catch(err => {
-				console.log(err);
-			})
+				}).then(result => {
+					console.log(result);
+					setForm(prevState => {
+						return {
+							formIndex: prevState.formIndex + 1
+						}
+					});
+				}).catch(err => {
+					console.log(err);
+				})
+			} else {
+				console.log(props, 'props here');
+				axios.patch(`/api/portfolios/${props.data._id}`, formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+						Authorization: `Bearer ${token}`
+					}
+				}).then(result => {
+					console.log(result);
+					setForm(prevState => {
+						return {
+							formIndex: prevState.formIndex + 1
+						}
+					});
+				}).catch(err => {
+					console.log(err);
+				})
+			}
 		}
 	};
 	//this Portfolio component will receive data as part of props
