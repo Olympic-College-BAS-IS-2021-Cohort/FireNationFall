@@ -17,6 +17,7 @@ const onRedirectCallback = appState => {
 };
 
 console.log(process.env);
+console.log(process.env.DOMAIN);
 
 ReactDOM.render( <Auth0Provider
 	domain={process.env.DOMAIN}
