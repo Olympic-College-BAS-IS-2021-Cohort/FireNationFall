@@ -40,7 +40,7 @@ const s3 = new aws.S3();
 const fileStorage =  multers3({
 	s3: s3,
 	bucket: 'firenation',
-	acl: 'public read',
+	acl: 'public-read',
 	metadata: function (req, file, cb) {
 		cb(null, {fieldName: 'image'})
 	},
