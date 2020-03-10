@@ -1,0 +1,29 @@
+.AboutHeader {
+    color: #133f7f;
+    font-style: italic;
+}
+
+.ExperienceHeader {
+    color: #ffffff;
+    font-style: italic;
+}
+
+.EducationHeader {
+    color: #ffffff;
+    font-style: italic;
+}
+
+.SkillsHeader {
+    color: #133f7f;
+    font-style: italic;
+}
+
+.ContactHeader {
+    color: #ffffff;
+    font-style: italic;
+}
+
+
+.Paragraph {
+    line-height: 1.5;
+}

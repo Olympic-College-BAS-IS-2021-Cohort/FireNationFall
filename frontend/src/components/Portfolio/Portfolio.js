@@ -9,6 +9,9 @@ import EducationSection from './EducationSection/EducationSection';
 import ExperienceSection from './ExperienceSection/ExperienceSection';
 import SkillsSection from './SkillsSection/SkillsSection';
 
+//styles
+import styles from './Portfolio.module.css'
+
 const dummyData = {
 	about: {
 		description: 'this is the description about me'
@@ -57,20 +60,21 @@ export default (props) => {
 						<Image src={`/${portfolio.pictureUrl}`} size={'small'} centered circular/>
 						<Header as={'h2'} textAlign={'center'}>
 							<Header.Content>{portfolio.name}</Header.Content>
+							<Header.Subhead>{portfolio.metaInfo}</Header.Subhead>
 						</Header>
 					</Segment>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh", background: "linear-gradient(to bottom, #114fad, #0073d1)"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#ffffff"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.AboutHeader}>
 							About Me
 						</Header>
-						<p>{portfolio.about}</p>
+						<p className={styles.Paragraph}>{portfolio.about}</p>
 					</Container>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh", background: "linear-gradient(to bottom, #34c24c, #0b991e)"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#152e4e"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.ExperienceHeader}>
 							Experience
 						</Header>
 						{portfolio.experience.map(experience => {
@@ -78,9 +82,9 @@ export default (props) => {
 						})}
 					</Container>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#2ebaee"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.EducationHeader}>
 							Education
 						</Header>
 						{portfolio.education.map(education => {
@@ -88,9 +92,9 @@ export default (props) => {
 						})}
 					</Container>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#ffffff"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.SkillsHeader}>
 							Skills
 						</Header>
 						{portfolio.skills.map(skillList => {
@@ -100,12 +104,12 @@ export default (props) => {
 						})}
 					</Container>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#0b192e"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.ContactHeader}>
 							Contact Me
 						</Header>
-						<p>Contact Info goes here</p>
+						<p style={{color: "#9da3ab"}}>Contact Info goes here</p>
 					</Container>
 				</Grid.Row>
 			</Grid>

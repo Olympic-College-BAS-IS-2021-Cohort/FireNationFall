@@ -6,6 +6,16 @@ import FormBuilder from '../../Form/FormBuilder';
 
 export default (props) => {
 
+	let company, startDateJob, endDateJob, position, jobDescription;
+	if(props.initialData) {
+		const {initialData} = props;
+		company = initialData.company;
+		startDateJob = initialData.startDateJob;
+		endDateJob = initialData.endDateJob;
+		position = initialData.position;
+		jobDescription = initialData.jobDescription;
+	}
+
 	const formConfigs = {
 		formGroups: [
 			[
@@ -13,7 +23,8 @@ export default (props) => {
 					label: 'Company',
 					placeholder: `Where you worked`,
 					control: 'input',
-					name: 'company'
+					name: 'company',
+					initialValue: company
 				}
 			],
 			[
@@ -21,7 +32,8 @@ export default (props) => {
 					label: 'Start Date',
 					control: 'input',
 					type: 'date',
-					name: 'startDateJob'
+					name: 'startDateJob',
+					initialValue: startDateJob
 				}
 			],
 			[
@@ -29,21 +41,24 @@ export default (props) => {
 					label: 'End Date',
 					control: 'input',
 					type: 'date',
-					name: 'endDateJob'
+					name: 'endDateJob',
+					initialValue: endDateJob
 				}
 			],
 			[
 				{
 					label: 'Position',
 					control: 'input',
-					name: 'position'
+					name: 'position',
+					initialValue: position
 				}
 			],
 			[
 				{
 					label: 'Job Description',
 					control: 'textarea',
-					name: 'jobDescription'
+					name: 'jobDescription',
+					initialValue: jobDescription
 				}
 			]
 		],

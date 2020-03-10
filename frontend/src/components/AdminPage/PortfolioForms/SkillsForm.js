@@ -4,6 +4,13 @@ import FormBuilder from '../../Form/FormBuilder';
 
 export default (props) => {
 
+	let category, list;
+	if(props.initialData) {
+		const {initialData} = props;
+		category = initialData.company;
+		list = initialData.list.join(',');
+	}
+
 	const formConfigs = {
 		formGroups: [
 			[
@@ -11,7 +18,8 @@ export default (props) => {
 					label: 'Category',
 					placeholder: `Category of this skill sets`,
 					control: 'input',
-					name: 'category'
+					name: 'category',
+					initialValue: category
 				}
 			],
 			[
@@ -19,7 +27,8 @@ export default (props) => {
 					label: 'List of Skills',
 					placeholder: 'Comma separate the individual skills',
 					control: 'input',
-					name: 'list'
+					name: 'list',
+					initialValue: list
 				}
 			]
 		],
