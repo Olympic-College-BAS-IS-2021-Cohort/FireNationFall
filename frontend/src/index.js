@@ -22,7 +22,7 @@ const onRedirectCallback = appState => {
 ReactDOM.render( <Auth0Provider
 	domain={config.domain}
 	client_id={config.clientId}
-	redirect_uri={`https://fire-nation.herokuapp.com/admin`}
+	redirect_uri={`${window.location.origin}/admin`}
 	audience={config.audience}
 	onRedirectCallback={onRedirectCallback}
 >
