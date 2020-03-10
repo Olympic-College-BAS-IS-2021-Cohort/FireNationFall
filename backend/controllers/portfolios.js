@@ -43,7 +43,9 @@ const postPortfolio = (req, res ,next) => {
 	const data = req.body;
 
 	if(image) {
-		data.pictureUrl = image.path;
+		//only works with local file storage system
+		// data.pictureUrl = image.path;
+		data.pictureUrl = image.location;
 	}
 
 	const newPortfolio = new Portfolio(data);

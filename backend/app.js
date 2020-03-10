@@ -1,11 +1,12 @@
-const https = require('https');
-const fs = require('fs');
+// const https = require('https');
+// const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const aws = require('aws-sdk');
 const multer = require('multer');
+const multers3 = require('multer-s3');
 
 
 // const jwtAuthz = require('express-jwt-authz');
@@ -18,25 +19,27 @@ let app = express();
 
 
 const apiRoutes = require('./routes/api');
-//
-// const key = fs.readFileSync('./localhost-key.pem');
-// const cert = fs.readFileSync('./localhost.pem');
-//
-// const options = {key, cert};
 
-//getting user profile
-// app.get('/profile', requiresAuth(), (req, res) => {
-// 	res.send(JSON.stringify(req.openid.user));
+//for saving in hosted environment
+// const fileStorage = multer.diskStorage({
+// 	destination: function (req, file, cb) {
+// 		cb(null, path.join('.','images'));
+// 	},
+// 	filename: function (req, file, cb) {
+// 		cb(null, Date.now()+ '_' + file.originalname);
+// 	}
 // });
 
-// app.use(auth(config));
-
-const fileStorage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, path.join('.','images'));
+const s3 = new aws.S3({});
+const fileStorage =  multers3({
+	s3: s3,
+	bucket: 'firenation',
+	acl: 'public read',
+	metadata: function (req, file, cb) {
+		cb(null, {fieldName: file.fieldName})
 	},
-	filename: function (req, file, cb) {
-		cb(null, Date.now()+ '_' + file.originalname);
+	key: function (req, file, cb) {
+		cb(null, Date.now()+ '_' + file.originalname)
 	}
 });
 
@@ -55,16 +58,12 @@ const fileFilter = (req, file, cb) => {
 //middlewares to parse a request's body to usable formats.
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-//todo: have the file name saved somewhere that both the front end and backend can access, so the naming is consistent
+
 app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('picture'));
 app.use(express.static(path.join(__dirname, '.', 'public', 'build')));
 
 app.use('/api', apiRoutes);
 
-
-// app.use('/callback', (req, res, next) => {
-// 	res.redirect('https://localhost:3001/admin');
-// });
 
 app.use('/images', express.static(path.join(__dirname,'images')));
 
@@ -72,10 +71,13 @@ app.get('*', function getHome(req, res) {
 	res.sendFile(path.join(__dirname, '.', 'public', 'build', 'index.html'));
 });
 
-
+//for self-signed and self-hosted server
+// const key = fs.readFileSync('./localhost-key.pem');
+// const cert = fs.readFileSync('./localhost.pem');
+// const options = {key, cert};
 // app = https.createServer(options, app);
 
-mongoose.connect('mongodb+srv://ndhuutai:deptraI1@fire-nation-dev-cluster-swtcr.mongodb.net/firenation?retryWrites=true&w=majority', {
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_URI}?retryWrites=true&w=majority`, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 }).then(() => {
