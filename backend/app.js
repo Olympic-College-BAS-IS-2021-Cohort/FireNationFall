@@ -30,6 +30,12 @@ const apiRoutes = require('./routes/api');
 // 	}
 // });
 
+aws.config.update({
+	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+	region: 'us-west-2'
+});
+
 const s3 = new aws.S3();
 const fileStorage =  multers3({
 	s3: s3,
