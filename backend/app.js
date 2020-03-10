@@ -30,13 +30,13 @@ const apiRoutes = require('./routes/api');
 // 	}
 // });
 
-const s3 = new aws.S3({});
+const s3 = new aws.S3();
 const fileStorage =  multers3({
 	s3: s3,
 	bucket: 'firenation',
 	acl: 'public read',
 	metadata: function (req, file, cb) {
-		cb(null, {fieldName: file.fieldName})
+		cb(null, {fieldName: 'image'})
 	},
 	key: function (req, file, cb) {
 		cb(null, Date.now()+ '_' + file.originalname)
