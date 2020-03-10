@@ -48,6 +48,8 @@ const postPortfolio = (req, res ,next) => {
 		data.pictureUrl = image.location;
 	}
 
+	console.log(data);
+
 	const newPortfolio = new Portfolio(data);
 
 	newPortfolio.save(null, err => {
