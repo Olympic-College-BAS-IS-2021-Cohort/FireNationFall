@@ -5,7 +5,10 @@ const router = express.Router();
 const portfolioRouter = require('./portfolios');
 const articleRouter = require('./articles');
 
-router.use('/portfolios', portfolioRouter);
+router.use('/portfolios', (req, res, next) => {
+	console.log('req.file here',req.file);
+	next();
+}, portfolioRouter);
 router.use('/articles', articleRouter);
 
 

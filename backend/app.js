@@ -61,7 +61,7 @@ app.use(bodyParser.json());
 
 app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('picture'));
 app.use(express.static(path.join(__dirname, '.', 'public', 'build')));
-
+console.log('got here');
 app.use('/api', apiRoutes);
 
 
