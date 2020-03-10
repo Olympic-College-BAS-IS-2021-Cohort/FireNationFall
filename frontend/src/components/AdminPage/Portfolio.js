@@ -114,7 +114,7 @@ export default (props) => {
 						}
 					});
 				}).catch(err => {
-					console.log(err);
+					console.log('error posting portfolio', err);
 				})
 			} else {
 				console.log(props, 'props here');
@@ -131,7 +131,7 @@ export default (props) => {
 						}
 					});
 				}).catch(err => {
-					console.log(err);
+					console.log('err editing portfolio', err);
 				})
 			}
 		}

@@ -52,7 +52,7 @@ const postPortfolio = (req, res ,next) => {
 
 	newPortfolio.save(null, err => {
 		if(err) {
-			console.log(err);
+			console.log('error saving portfolio', err);
 		}
 	});
 	res.status(201).send('portfolio created');
