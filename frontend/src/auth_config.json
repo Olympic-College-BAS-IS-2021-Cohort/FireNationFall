@@ -1,5 +1,5 @@
 {
   "domain": "fire-nation.auth0.com",
   "clientId": "OS4q4gAZovKeNFaZf9ScOYxrmZ4ojKps",
-  "audience" : "https://localhost:3001/api"
+  "audience" : "https://fire-nation.herokuapp.com/api"
 }
