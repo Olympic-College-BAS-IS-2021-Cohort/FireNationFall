@@ -2,7 +2,7 @@ const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 
 const authConfig = {
-	domain: `${process.env.AUTH_DOMAIN}`,
+	domain: `fire-nation.auth0.com`,
 	audience: `https://fire-nation.herokuapp.com/api`
 };
 
@@ -16,7 +16,7 @@ const checkJwt = jwt({
 	}),
 
 	audience: authConfig.audience,
-	issuer: `${process.env.AUTH_ISSUER}`,
+	issuer: `https://fire-nation.auth0.com/`,
 	algorithms: ['RS256']
 });
 
