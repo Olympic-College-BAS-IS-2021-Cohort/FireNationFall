@@ -9,11 +9,21 @@
   },
   "author": "Tai N",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
+    "aws-sdk": "^2.636.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "express-jwt-authz": "^2.3.1",
+    "express-openid-connect": "^0.6.0",
+    "jwks-rsa": "^1.7.0",
+    "mongodb": "^3.5.3",
+    "mongoose": "^5.9.1",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "nodemon": "^2.0.2"
   },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+  "engines": {
+    "node": "12.10.0"
   }
 }

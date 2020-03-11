@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Image, Segment, Header, Grid, Container} from 'semantic-ui-react';
 
 //Todo: move inline styles to separate modules
 //Todo: refactor the several containers to its own component.
 
+import PortfoliosContext from '../../contexts/PortfoliosContext';
+import EducationSection from './EducationSection/EducationSection';
+import ExperienceSection from './ExperienceSection/ExperienceSection';
+import SkillsSection from './SkillsSection/SkillsSection';
+
+//styles
+import styles from './Portfolio.module.css'
 
 const dummyData = {
 	about: {
@@ -41,65 +48,68 @@ const dummyData = {
 
 
 export default (props) => {
+
+	const value = useContext(PortfoliosContext);
+	const portfolio = value.portfolios[props.match.params.id];
+
 	return (
 		<Container fluid style={{padding: "0px"}}>
 			<Grid centered>
 				<Grid.Row centered style={{minHeight: "100vh"}}>
 					<Segment basic>
-						<Image src={'/avatars/T.png'} size={'small'} centered circular/>
+						<Image src={`/${portfolio.pictureUrl}`} size={'small'} centered circular/>
 						<Header as={'h2'} textAlign={'center'}>
-							<Header.Content>Tai Ng</Header.Content>
+							<Header.Content>{portfolio.name}</Header.Content>
+							<Header.Subhead>{portfolio.metaInfo}</Header.Subhead>
 						</Header>
 					</Segment>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh", background: "linear-gradient(to bottom, #114fad, #0073d1)"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#ffffff"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.AboutHeader}>
 							About Me
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						<p className={styles.Paragraph}>{portfolio.about}</p>
 					</Container>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh", background: "linear-gradient(to bottom, #34c24c, #0b991e)"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#152e4e"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.ExperienceHeader}>
 							Experience
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						{portfolio.experience.map(experience => {
+							return <ExperienceSection {...experience}/>
+						})}
 					</Container>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#2ebaee"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.EducationHeader}>
 							Education
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						{portfolio.education.map(education => {
+							return <EducationSection {...education}/>
+						})}
 					</Container>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#ffffff"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.SkillsHeader}>
 							Skills
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						{portfolio.skills.map(skillList => {
+							return (
+								<SkillsSection {...skillList}/>
+							)
+						})}
 					</Container>
 				</Grid.Row>
-				<Grid.Row centered style={{minHeight: "100vh"}}>
+				<Grid.Row centered style={{minHeight: "100vh", backgroundColor: "#0b192e"}}>
 					<Container textAlign={'left'}>
-						<Header as={'h1'}>
+						<Header as={'h1'} className={styles.ContactHeader}>
 							Contact Me
 						</Header>
-						<p>Some information here</p>
-						<p>Some information here</p>
-						<p>Some information here</p>
+						<p style={{color: "#9da3ab"}}>Contact Info goes here</p>
 					</Container>
 				</Grid.Row>
 			</Grid>

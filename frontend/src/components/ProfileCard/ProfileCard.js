@@ -6,18 +6,18 @@ import {Card, Image, Button} from 'semantic-ui-react';
 const ProfileCard = (props) => {
 	return (
 		<Card>
-			<Image src={'/avatars/T.png'} size={'medium'} centered/>
+			<Image src={props.pictureUrl} size={'medium'} centered/>
 			<Card.Content textAlign={'center'}>
-				<Card.Header>Tai</Card.Header>
+				<Card.Header>{props.name}</Card.Header>
 				<Card.Meta>
-					<span>Full-stack engineer</span>
+					<span>{props.metaInfo}</span>
 				</Card.Meta>
 				<Card.Description>
-					Tai is a full-stack web engineer
+					{props.shortDescription}
 				</Card.Description>
 			</Card.Content>
 			<Card.Content extra textAlign={'center'}>
-				<Button as={Link} to={`${props.match.url}/${'1'}`}>View Portfolio</Button>
+				<Button as={Link} to={`${props.match.url}/${props.index}`}>View Portfolio</Button>
 			</Card.Content>
 		</Card>
 	)
